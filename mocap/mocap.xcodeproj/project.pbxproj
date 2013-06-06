@@ -1,0 +1,386 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C94DE5A176006EA006612C9 /* libfltk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE59176006EA006612C9 /* libfltk.a */; };
+		1C94DE5C176006EE006612C9 /* libfltk_images.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE5B176006EE006612C9 /* libfltk_images.a */; };
+		1C94DE5E176006F1006612C9 /* libfltk_gl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE5D176006F1006612C9 /* libfltk_gl.a */; };
+		1C94DE60176006F4006612C9 /* libfltk_forms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE5F176006F4006612C9 /* libfltk_forms.a */; };
+		1C94DF84176009D9006612C9 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DF82176009D9006612C9 /* GLUT.framework */; };
+		1C94DF85176009D9006612C9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DF83176009D9006612C9 /* OpenGL.framework */; };
+		1CE42DAF176003FE00D7BE41 /* displaySkeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32049175FF58B0087F209 /* displaySkeleton.cpp */; };
+		1CE42DB0176003FE00D7BE41 /* displaySkeleton.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204A175FF58B0087F209 /* displaySkeleton.h */; };
+		1CE42DB1176003FE00D7BE41 /* displaySkeleton.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204B175FF58B0087F209 /* displaySkeleton.o */; };
+		1CE42DB2176003FE00D7BE41 /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204C175FF58B0087F209 /* interface.cpp */; };
+		1CE42DB3176003FE00D7BE41 /* interface.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204D175FF58B0087F209 /* interface.h */; };
+		1CE42DB4176003FE00D7BE41 /* interface.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204E175FF58B0087F209 /* interface.o */; };
+		1CE42DB5176003FE00D7BE41 /* mocapPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204F175FF58B0087F209 /* mocapPlayer.cpp */; };
+		1CE42DB6176003FE00D7BE41 /* mocapPlayer.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32050175FF58B0087F209 /* mocapPlayer.h */; };
+		1CE42DB7176003FE00D7BE41 /* mocapPlayer.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32051175FF58B0087F209 /* mocapPlayer.o */; };
+		1CE42DB8176003FE00D7BE41 /* motion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32052175FF58B0087F209 /* motion.cpp */; };
+		1CE42DB9176003FE00D7BE41 /* motion.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32053175FF58B0087F209 /* motion.h */; };
+		1CE42DBA176003FE00D7BE41 /* motion.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32054175FF58B0087F209 /* motion.o */; };
+		1CE42DBB176003FE00D7BE41 /* performanceCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32055175FF58B0087F209 /* performanceCounter.cpp */; };
+		1CE42DBC176003FE00D7BE41 /* performanceCounter.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32056175FF58B0087F209 /* performanceCounter.h */; };
+		1CE42DBD176003FE00D7BE41 /* performanceCounter.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32057175FF58B0087F209 /* performanceCounter.o */; };
+		1CE42DBE176003FE00D7BE41 /* pic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32058175FF58B0087F209 /* pic.cpp */; };
+		1CE42DBF176003FE00D7BE41 /* pic.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32059175FF58B0087F209 /* pic.h */; };
+		1CE42DC0176003FE00D7BE41 /* pic.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205A175FF58B0087F209 /* pic.o */; };
+		1CE42DC1176003FE00D7BE41 /* posture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205B175FF58B0087F209 /* posture.cpp */; };
+		1CE42DC2176003FE00D7BE41 /* posture.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205C175FF58B0087F209 /* posture.h */; };
+		1CE42DC3176003FE00D7BE41 /* posture.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205D175FF58B0087F209 /* posture.o */; };
+		1CE42DC4176003FE00D7BE41 /* ppm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205E175FF58B0087F209 /* ppm.cpp */; };
+		1CE42DC5176003FE00D7BE41 /* ppm.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205F175FF58B0087F209 /* ppm.o */; };
+		1CE42DC6176003FE00D7BE41 /* skeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32060175FF58B0087F209 /* skeleton.cpp */; };
+		1CE42DC7176003FE00D7BE41 /* skeleton.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32061175FF58B0087F209 /* skeleton.h */; };
+		1CE42DC8176003FE00D7BE41 /* skeleton.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32062175FF58B0087F209 /* skeleton.o */; };
+		1CE42DC9176003FE00D7BE41 /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32063175FF58B0087F209 /* transform.cpp */; };
+		1CE42DCA176003FE00D7BE41 /* transform.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32064175FF58B0087F209 /* transform.h */; };
+		1CE42DCB176003FE00D7BE41 /* transform.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32065175FF58B0087F209 /* transform.o */; };
+		1CE42DCC176003FE00D7BE41 /* types.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32066175FF58B0087F209 /* types.h */; };
+		1CE42DCD176003FE00D7BE41 /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32067175FF58B0087F209 /* vector.cpp */; };
+		1CE42DCE176003FE00D7BE41 /* vector.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32068175FF58B0087F209 /* vector.h */; };
+		1CE42DCF176003FE00D7BE41 /* vector.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32069175FF58B0087F209 /* vector.o */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1CD3203B175FF5550087F209 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1C94DE59176006EA006612C9 /* libfltk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk.a; sourceTree = "<group>"; };
+		1C94DE5B176006EE006612C9 /* libfltk_images.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk_images.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk_images.a; sourceTree = "<group>"; };
+		1C94DE5D176006F1006612C9 /* libfltk_gl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk_gl.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk_gl.a; sourceTree = "<group>"; };
+		1C94DE5F176006F4006612C9 /* libfltk_forms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk_forms.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk_forms.a; sourceTree = "<group>"; };
+		1C94DF82176009D9006612C9 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		1C94DF83176009D9006612C9 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		1CD3203D175FF5550087F209 /* mocap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mocap; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CD32049175FF58B0087F209 /* displaySkeleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = displaySkeleton.cpp; path = mocap/displaySkeleton.cpp; sourceTree = "<group>"; };
+		1CD3204A175FF58B0087F209 /* displaySkeleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = displaySkeleton.h; path = mocap/displaySkeleton.h; sourceTree = "<group>"; };
+		1CD3204B175FF58B0087F209 /* displaySkeleton.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = displaySkeleton.o; path = mocap/displaySkeleton.o; sourceTree = "<group>"; };
+		1CD3204C175FF58B0087F209 /* interface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = interface.cpp; path = mocap/interface.cpp; sourceTree = "<group>"; };
+		1CD3204D175FF58B0087F209 /* interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = interface.h; path = mocap/interface.h; sourceTree = "<group>"; };
+		1CD3204E175FF58B0087F209 /* interface.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = interface.o; path = mocap/interface.o; sourceTree = "<group>"; };
+		1CD3204F175FF58B0087F209 /* mocapPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = mocapPlayer.cpp; path = mocap/mocapPlayer.cpp; sourceTree = "<group>"; };
+		1CD32050175FF58B0087F209 /* mocapPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mocapPlayer.h; path = mocap/mocapPlayer.h; sourceTree = "<group>"; };
+		1CD32051175FF58B0087F209 /* mocapPlayer.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = mocapPlayer.o; path = mocap/mocapPlayer.o; sourceTree = "<group>"; };
+		1CD32052175FF58B0087F209 /* motion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = motion.cpp; path = mocap/motion.cpp; sourceTree = "<group>"; };
+		1CD32053175FF58B0087F209 /* motion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = motion.h; path = mocap/motion.h; sourceTree = "<group>"; };
+		1CD32054175FF58B0087F209 /* motion.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = motion.o; path = mocap/motion.o; sourceTree = "<group>"; };
+		1CD32055175FF58B0087F209 /* performanceCounter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = performanceCounter.cpp; path = mocap/performanceCounter.cpp; sourceTree = "<group>"; };
+		1CD32056175FF58B0087F209 /* performanceCounter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = performanceCounter.h; path = mocap/performanceCounter.h; sourceTree = "<group>"; };
+		1CD32057175FF58B0087F209 /* performanceCounter.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = performanceCounter.o; path = mocap/performanceCounter.o; sourceTree = "<group>"; };
+		1CD32058175FF58B0087F209 /* pic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pic.cpp; path = mocap/pic.cpp; sourceTree = "<group>"; };
+		1CD32059175FF58B0087F209 /* pic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pic.h; path = mocap/pic.h; sourceTree = "<group>"; };
+		1CD3205A175FF58B0087F209 /* pic.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pic.o; path = mocap/pic.o; sourceTree = "<group>"; };
+		1CD3205B175FF58B0087F209 /* posture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = posture.cpp; path = mocap/posture.cpp; sourceTree = "<group>"; };
+		1CD3205C175FF58B0087F209 /* posture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = posture.h; path = mocap/posture.h; sourceTree = "<group>"; };
+		1CD3205D175FF58B0087F209 /* posture.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = posture.o; path = mocap/posture.o; sourceTree = "<group>"; };
+		1CD3205E175FF58B0087F209 /* ppm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ppm.cpp; path = mocap/ppm.cpp; sourceTree = "<group>"; };
+		1CD3205F175FF58B0087F209 /* ppm.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ppm.o; path = mocap/ppm.o; sourceTree = "<group>"; };
+		1CD32060175FF58B0087F209 /* skeleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = skeleton.cpp; path = mocap/skeleton.cpp; sourceTree = "<group>"; };
+		1CD32061175FF58B0087F209 /* skeleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = skeleton.h; path = mocap/skeleton.h; sourceTree = "<group>"; };
+		1CD32062175FF58B0087F209 /* skeleton.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = skeleton.o; path = mocap/skeleton.o; sourceTree = "<group>"; };
+		1CD32063175FF58B0087F209 /* transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = transform.cpp; path = mocap/transform.cpp; sourceTree = "<group>"; };
+		1CD32064175FF58B0087F209 /* transform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = transform.h; path = mocap/transform.h; sourceTree = "<group>"; };
+		1CD32065175FF58B0087F209 /* transform.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = transform.o; path = mocap/transform.o; sourceTree = "<group>"; };
+		1CD32066175FF58B0087F209 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = mocap/types.h; sourceTree = "<group>"; };
+		1CD32067175FF58B0087F209 /* vector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vector.cpp; path = mocap/vector.cpp; sourceTree = "<group>"; };
+		1CD32068175FF58B0087F209 /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = vector.h; path = mocap/vector.h; sourceTree = "<group>"; };
+		1CD32069175FF58B0087F209 /* vector.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = vector.o; path = mocap/vector.o; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1CD3203A175FF5550087F209 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C94DF84176009D9006612C9 /* GLUT.framework in Frameworks */,
+				1C94DF85176009D9006612C9 /* OpenGL.framework in Frameworks */,
+				1C94DE5A176006EA006612C9 /* libfltk.a in Frameworks */,
+				1C94DE5E176006F1006612C9 /* libfltk_gl.a in Frameworks */,
+				1C94DE60176006F4006612C9 /* libfltk_forms.a in Frameworks */,
+				1C94DE5C176006EE006612C9 /* libfltk_images.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1CD32034175FF5550087F209 = {
+			isa = PBXGroup;
+			children = (
+				1C94DF82176009D9006612C9 /* GLUT.framework */,
+				1C94DF83176009D9006612C9 /* OpenGL.framework */,
+				1C94DE5F176006F4006612C9 /* libfltk_forms.a */,
+				1C94DE5D176006F1006612C9 /* libfltk_gl.a */,
+				1C94DE5B176006EE006612C9 /* libfltk_images.a */,
+				1C94DE59176006EA006612C9 /* libfltk.a */,
+				1CD3203E175FF5550087F209 /* Products */,
+				1CD32049175FF58B0087F209 /* displaySkeleton.cpp */,
+				1CD3204A175FF58B0087F209 /* displaySkeleton.h */,
+				1CD3204B175FF58B0087F209 /* displaySkeleton.o */,
+				1CD3204C175FF58B0087F209 /* interface.cpp */,
+				1CD3204D175FF58B0087F209 /* interface.h */,
+				1CD3204E175FF58B0087F209 /* interface.o */,
+				1CD3204F175FF58B0087F209 /* mocapPlayer.cpp */,
+				1CD32050175FF58B0087F209 /* mocapPlayer.h */,
+				1CD32051175FF58B0087F209 /* mocapPlayer.o */,
+				1CD32052175FF58B0087F209 /* motion.cpp */,
+				1CD32053175FF58B0087F209 /* motion.h */,
+				1CD32054175FF58B0087F209 /* motion.o */,
+				1CD32055175FF58B0087F209 /* performanceCounter.cpp */,
+				1CD32056175FF58B0087F209 /* performanceCounter.h */,
+				1CD32057175FF58B0087F209 /* performanceCounter.o */,
+				1CD32058175FF58B0087F209 /* pic.cpp */,
+				1CD32059175FF58B0087F209 /* pic.h */,
+				1CD3205A175FF58B0087F209 /* pic.o */,
+				1CD3205B175FF58B0087F209 /* posture.cpp */,
+				1CD3205C175FF58B0087F209 /* posture.h */,
+				1CD3205D175FF58B0087F209 /* posture.o */,
+				1CD3205E175FF58B0087F209 /* ppm.cpp */,
+				1CD3205F175FF58B0087F209 /* ppm.o */,
+				1CD32060175FF58B0087F209 /* skeleton.cpp */,
+				1CD32061175FF58B0087F209 /* skeleton.h */,
+				1CD32062175FF58B0087F209 /* skeleton.o */,
+				1CD32063175FF58B0087F209 /* transform.cpp */,
+				1CD32064175FF58B0087F209 /* transform.h */,
+				1CD32065175FF58B0087F209 /* transform.o */,
+				1CD32066175FF58B0087F209 /* types.h */,
+				1CD32067175FF58B0087F209 /* vector.cpp */,
+				1CD32068175FF58B0087F209 /* vector.h */,
+				1CD32069175FF58B0087F209 /* vector.o */,
+			);
+			sourceTree = "<group>";
+		};
+		1CD3203E175FF5550087F209 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1CD3203D175FF5550087F209 /* mocap */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1CD3203C175FF5550087F209 /* mocap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CD32046175FF5550087F209 /* Build configuration list for PBXNativeTarget "mocap" */;
+			buildPhases = (
+				1CD32039175FF5550087F209 /* Sources */,
+				1CD3203A175FF5550087F209 /* Frameworks */,
+				1CD3203B175FF5550087F209 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mocap;
+			productName = mocap;
+			productReference = 1CD3203D175FF5550087F209 /* mocap */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1CD32035175FF5550087F209 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = javid;
+			};
+			buildConfigurationList = 1CD32038175FF5550087F209 /* Build configuration list for PBXProject "mocap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1CD32034175FF5550087F209;
+			productRefGroup = 1CD3203E175FF5550087F209 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1CD3203C175FF5550087F209 /* mocap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1CD32039175FF5550087F209 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CE42DAF176003FE00D7BE41 /* displaySkeleton.cpp in Sources */,
+				1CE42DB0176003FE00D7BE41 /* displaySkeleton.h in Sources */,
+				1CE42DB1176003FE00D7BE41 /* displaySkeleton.o in Sources */,
+				1CE42DB2176003FE00D7BE41 /* interface.cpp in Sources */,
+				1CE42DB3176003FE00D7BE41 /* interface.h in Sources */,
+				1CE42DB4176003FE00D7BE41 /* interface.o in Sources */,
+				1CE42DB5176003FE00D7BE41 /* mocapPlayer.cpp in Sources */,
+				1CE42DB6176003FE00D7BE41 /* mocapPlayer.h in Sources */,
+				1CE42DB7176003FE00D7BE41 /* mocapPlayer.o in Sources */,
+				1CE42DB8176003FE00D7BE41 /* motion.cpp in Sources */,
+				1CE42DB9176003FE00D7BE41 /* motion.h in Sources */,
+				1CE42DBA176003FE00D7BE41 /* motion.o in Sources */,
+				1CE42DBB176003FE00D7BE41 /* performanceCounter.cpp in Sources */,
+				1CE42DBC176003FE00D7BE41 /* performanceCounter.h in Sources */,
+				1CE42DBD176003FE00D7BE41 /* performanceCounter.o in Sources */,
+				1CE42DBE176003FE00D7BE41 /* pic.cpp in Sources */,
+				1CE42DBF176003FE00D7BE41 /* pic.h in Sources */,
+				1CE42DC0176003FE00D7BE41 /* pic.o in Sources */,
+				1CE42DC1176003FE00D7BE41 /* posture.cpp in Sources */,
+				1CE42DC2176003FE00D7BE41 /* posture.h in Sources */,
+				1CE42DC3176003FE00D7BE41 /* posture.o in Sources */,
+				1CE42DC4176003FE00D7BE41 /* ppm.cpp in Sources */,
+				1CE42DC5176003FE00D7BE41 /* ppm.o in Sources */,
+				1CE42DC6176003FE00D7BE41 /* skeleton.cpp in Sources */,
+				1CE42DC7176003FE00D7BE41 /* skeleton.h in Sources */,
+				1CE42DC8176003FE00D7BE41 /* skeleton.o in Sources */,
+				1CE42DC9176003FE00D7BE41 /* transform.cpp in Sources */,
+				1CE42DCA176003FE00D7BE41 /* transform.h in Sources */,
+				1CE42DCB176003FE00D7BE41 /* transform.o in Sources */,
+				1CE42DCC176003FE00D7BE41 /* types.h in Sources */,
+				1CE42DCD176003FE00D7BE41 /* vector.cpp in Sources */,
+				1CE42DCE176003FE00D7BE41 /* vector.h in Sources */,
+				1CE42DCF176003FE00D7BE41 /* vector.o in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1CD32044175FF5550087F209 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1CD32045175FF5550087F209 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1CD32047175FF5550087F209 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FLTK-aljoumpvrahwsraaptrngmoauois/Build/Products/Release\"",
+				);
+				HEADER_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.2/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FLTK-aljoumpvrahwsraaptrngmoauois/Build/Products/Release/fltk.framework/Versions/A\"",
+					"\"$(SRCROOT)/lib\"",
+					/usr/local/Cellar/fltk/1.3.2/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1CD32048175FF5550087F209 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FLTK-aljoumpvrahwsraaptrngmoauois/Build/Products/Release\"",
+				);
+				HEADER_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.2/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FLTK-aljoumpvrahwsraaptrngmoauois/Build/Products/Release/fltk.framework/Versions/A\"",
+					"\"$(SRCROOT)/lib\"",
+					/usr/local/Cellar/fltk/1.3.2/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1CD32038175FF5550087F209 /* Build configuration list for PBXProject "mocap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CD32044175FF5550087F209 /* Debug */,
+				1CD32045175FF5550087F209 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CD32046175FF5550087F209 /* Build configuration list for PBXNativeTarget "mocap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CD32047175FF5550087F209 /* Debug */,
+				1CD32048175FF5550087F209 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1CD32035175FF5550087F209 /* Project object */;
+}
