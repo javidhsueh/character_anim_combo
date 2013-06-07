@@ -1,0 +1,13 @@
+boxing1
+boxing2
+boxing3
+punch_strike
+walk
+stretch
+swordplay
+jump
+jump_hop
+martialArts
+kick_ball
+taichi
+run
