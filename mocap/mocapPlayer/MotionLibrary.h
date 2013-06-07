@@ -10,7 +10,7 @@
 #define mocap_MotionLibrary_h
 
 #define MAX_MOTION_NUM 9999
-#define PREFIX_MOTION_PATH "/mocap_data/"
+#define PREFIX_MOTION_PATH "./mocap_data/"
 
 
 #include "motion.h"

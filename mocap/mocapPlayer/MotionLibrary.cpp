@@ -10,6 +10,7 @@
 #include <fstream>
 #include <math.h>
 #include <stdlib.h>
+#include <string>
 
 #include "MotionLibrary.h"
 

@@ -48,6 +48,9 @@
     <ClCompile Include="..\..\..\mocapPlayer\vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\mocapPlayer\MotionLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\mocapPlayer\displaySkeleton.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\mocapPlayer\vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\mocapPlayer\MotionLibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

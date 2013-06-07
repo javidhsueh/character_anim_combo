@@ -904,10 +904,9 @@ void Player_Gl_Window::draw()
     GraphicsInit();   
   }
     if(firstLoading){
-        char *filename = "/mocap_data/skeleton.asf";
         if (lastSkeleton <= lastMotion)  // cannot load new skeleton until motion is assigned to the current skeleton
         {
-            char * filename = "/mocap_data/skeleton.asf";
+            char * filename = "./mocap_data/skeleton.asf";
             if(filename != NULL)
             {
                 // Read skeleton from asf file
@@ -915,7 +914,7 @@ void Player_Gl_Window::draw()
                 lastSkeleton++;
 
                 if(motion_lib) delete motion_lib;
-                motion_lib = new MotionLibrary("/mocap_data/list.txt",pSkeleton);
+                motion_lib = new MotionLibrary("./mocap_data/list.txt",pSkeleton);
                 
                 // Set the rotations for all bones in their local coordinate system to 0
                 // Set root position to (0, 0, 0)
@@ -924,31 +923,6 @@ void Player_Gl_Window::draw()
                 //glwindow->redraw();
             }
         }
-        
-        if ((lastSkeleton >= 0) && (lastSkeleton >= lastMotion)){
-            char * filename = "/mocap_data/walk.amc";
-            if(filename != NULL){
-                // Read motion (.amc) file and create a motion
-                pMotion = new Motion(filename, MOCAP_SCALE, pSkeleton);
-                
-                // backup the filename
-                strcpy(lastMotionFilename, filename);
-                
-                // set sampled motion for display
-                displayer.LoadMotion(pMotion);
-                if (lastSkeleton > lastMotion)
-                    lastMotion++;
-                
-                UpdateMaxFrameNumber();
-                resetPostureAccordingFrameSlider();
-                frame_slider->value(currentFrameIndex);
-                frame_slider->maximum((double)maxFrames);
-                frame_slider->redraw();
-//                glwindow->redraw();
-//                Fl::flush();
-            }
-        } // if (lastSkeleton > lastMotion)
-//        glwindow->redraw();
         firstLoading =false;
     }
     
