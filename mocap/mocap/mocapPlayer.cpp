@@ -20,6 +20,7 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include <FL/glut.H>  // GLUT for use with FLTK
 #include <FL/Fl_File_Chooser.H> // file chooser for load/save
 #include <FL/fl_ask.H>
+#include <FL/names.h>         // array will be defined here
 
 #include "mocapPlayer.h"   		      
 #include "interface.h"  // UI framework built by FLTK (using fluid)
@@ -29,6 +30,13 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "transform.h"  // utility functions for vector and matrix transformation  
 #include "displaySkeleton.h"   
 #include "performanceCounter.h"
+
+#include "MotionLibrary.h"
+
+bool firstLoading = false;
+
+MotionLibrary* motion_lib;
+
 
 enum SwitchStatus {OFF, ON};
 
@@ -329,6 +337,10 @@ void load_callback(Fl_Button *button, void *)
         // Read skeleton from asf file
         pSkeleton = new Skeleton(filename, MOCAP_SCALE);
         lastSkeleton++;
+          
+        if(motion_lib) delete motion_lib;
+        motion_lib = new MotionLibrary("/mocap_data/list.txt",pSkeleton);
+          
         // Set the rotations for all bones in their local coordinate system to 0
         // Set root position to (0, 0, 0)
         pSkeleton->setBasePosture();
@@ -463,6 +475,52 @@ void saveScreenshot(int windowWidth, int windowHeight, char * filename)
 }
 void idle(void*)
 {
+  if(firstLoading){
+      char *filename = "/mocap_data/skeleton.asf";
+      if (lastSkeleton <= lastMotion)  // cannot load new skeleton until motion is assigned to the current skeleton
+      {
+          char * filename = "/mocap_data/skeleton.asf";
+          if(filename != NULL)
+          {
+              // Read skeleton from asf file
+              pSkeleton = new Skeleton(filename, MOCAP_SCALE);
+              lastSkeleton++;
+              // Set the rotations for all bones in their local coordinate system to 0
+              // Set root position to (0, 0, 0)
+              pSkeleton->setBasePosture();
+              displayer.LoadSkeleton(pSkeleton);
+              glwindow->redraw();
+          }
+      }
+      
+      if ((lastSkeleton >= 0) && (lastSkeleton >= lastMotion)){
+          char * filename = "/mocap_data/walk.amc";
+          if(filename != NULL){
+              // Read motion (.amc) file and create a motion
+              pMotion = new Motion(filename, MOCAP_SCALE, pSkeleton);
+                  
+              // backup the filename
+              strcpy(lastMotionFilename, filename);
+                  
+              // set sampled motion for display
+              displayer.LoadMotion(pMotion);
+              if (lastSkeleton > lastMotion)
+                 lastMotion++;
+                  
+              UpdateMaxFrameNumber();
+              resetPostureAccordingFrameSlider();
+              frame_slider->value(currentFrameIndex);
+              frame_slider->maximum((double)maxFrames);
+              frame_slider->redraw();
+              glwindow->redraw();
+              Fl::flush();
+          }
+      } // if (lastSkeleton > lastMotion)
+      glwindow->redraw();
+      firstLoading =false;
+      
+      Redisplay();
+  }
   if (previousPlayButtonStatus == ON)  
   {
     // it means we should measure the interval between two frames
@@ -900,8 +958,110 @@ void Player_Gl_Window::draw()
   Redisplay();
 }
 
+int handle(int e) {
+    char buffer[100];
+    const char *keyname = buffer;
+    int k = Fl::event_key();
+    switch(k){
+        case 'a':
+        {
+            printf("%c",k);
+            char *filename = "/mocap_data/skeleton.asf";
+            if (lastSkeleton <= lastMotion)  // cannot load new skeleton until motion is assigned to the current skeleton
+            {
+                char * filename = "/mocap_data/skeleton.asf";
+                if(filename != NULL)
+                {
+                    // Read skeleton from asf file
+                    pSkeleton = new Skeleton(filename, MOCAP_SCALE);
+                    lastSkeleton++;
+                    // Set the rotations for all bones in their local coordinate system to 0
+                    // Set root position to (0, 0, 0)
+                    pSkeleton->setBasePosture();
+                    displayer.LoadSkeleton(pSkeleton);
+                    glwindow->redraw();
+                }
+            }            
+            glwindow->redraw();
+        }
+            break;
+        case 'b':
+        {
+            if ((lastSkeleton >= 0) && (lastSkeleton >= lastMotion)){
+                char * filename = "/mocap_data/run.amc";
+                if(filename != NULL){
+                    // Read motion (.amc) file and create a motion
+                    pMotion = new Motion(filename, MOCAP_SCALE, pSkeleton);
+                    
+                    // backup the filename
+                    strcpy(lastMotionFilename, filename);
+                    
+                    // set sampled motion for display
+                    displayer.LoadMotion(pMotion);
+                    if (lastSkeleton > lastMotion)
+                        lastMotion++;
+                    
+                    UpdateMaxFrameNumber();
+                    resetPostureAccordingFrameSlider();
+                    frame_slider->value(currentFrameIndex);
+                    frame_slider->maximum((double)maxFrames);
+                    frame_slider->redraw();
+                    glwindow->redraw();
+                    Fl::flush();
+                }
+            } // if (lastSkeleton > lastMotion)
+            glwindow->redraw();
+    }
+            printf("%c",k);
+            break;
+        case 'c':
+        {
+            if ((lastSkeleton >= 0) && (lastSkeleton >= lastMotion)){
+                char * filename = "/mocap_data/dance.amc";
+                if(filename != NULL){
+                    // Read motion (.amc) file and create a motion
+                    pMotion = new Motion(filename, MOCAP_SCALE, pSkeleton);
+                    
+                    // backup the filename
+                    strcpy(lastMotionFilename, filename);
+                    
+                    // set sampled motion for display
+                    displayer.LoadMotion(pMotion);
+                    if (lastSkeleton > lastMotion)
+                        lastMotion++;
+                    
+                    UpdateMaxFrameNumber();
+                    resetPostureAccordingFrameSlider();
+                    frame_slider->value(currentFrameIndex);
+                    frame_slider->maximum((double)maxFrames);
+                    frame_slider->redraw();
+                    glwindow->redraw();
+                    Fl::flush();
+                }
+            } // if (lastSkeleton > lastMotion)
+            glwindow->redraw();
+        }
+
+            printf("%c",k);
+            break;
+        case '1':
+            printf("%c",k);
+            break;
+        case '2':
+            printf("%c",k);
+            break;
+        case '3':
+            printf("%c",k);
+            break;
+    }
+    return (e == FL_SHORTCUT); // eat all keystrokes
+}
+
+
 int main(int argc, char **argv) 
 {
+  Fl::add_handler(handle);
+    
   // Initialize form, sliders and buttons
   form = make_window();
 
@@ -929,6 +1089,11 @@ int main(int argc, char **argv)
   glwindow->show(); // glwindow is initialized when the form is built
   performanceCounter.StopCounter();
 
+  glwindow->redraw();
+//  Redisplay();
+//  GraphicsInit();
+
+
   if (argc > 2)
   {
     char *filename;
@@ -936,6 +1101,7 @@ int main(int argc, char **argv)
     filename = argv[1];
     if(filename != NULL)
     {
+        printf("skeleton file:%s", filename);
       //Read skeleton from asf file
       pSkeleton = new Skeleton(filename, MOCAP_SCALE);
 
@@ -951,6 +1117,7 @@ int main(int argc, char **argv)
       filename = argv[2];
       if(filename != NULL)
       {
+        printf("motion file:%s", filename);
         //Read motion (.amc) file and create a motion
         pMotion = new Motion(filename, MOCAP_SCALE,pSkeleton);
 
@@ -960,7 +1127,7 @@ int main(int argc, char **argv)
         lastMotion++;
 
         //Tell skeleton to perform the first pose ( first posture )
-        pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));          
+        pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
 
         // Set skeleton to perform the first pose ( first posture )         
         int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
@@ -983,6 +1150,7 @@ int main(int argc, char **argv)
     groundPlane = ON; 
     glwindow->redraw();
   }  // if (argc > 2)
+
   Fl::add_idle(idle);
   return Fl::run();
 }

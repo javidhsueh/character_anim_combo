@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C436A4A17617DD800C4D160 /* MotionLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C436A4817617DAC00C4D160 /* MotionLibrary.cpp */; };
+		1C436A4B17617DD800C4D160 /* MotionLibrary.h in Sources */ = {isa = PBXBuildFile; fileRef = 1C436A4917617DAC00C4D160 /* MotionLibrary.h */; };
 		1C94DE5A176006EA006612C9 /* libfltk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE59176006EA006612C9 /* libfltk.a */; };
 		1C94DE5C176006EE006612C9 /* libfltk_images.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE5B176006EE006612C9 /* libfltk_images.a */; };
 		1C94DE5E176006F1006612C9 /* libfltk_gl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DE5D176006F1006612C9 /* libfltk_gl.a */; };
@@ -15,37 +17,26 @@
 		1C94DF85176009D9006612C9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C94DF83176009D9006612C9 /* OpenGL.framework */; };
 		1CE42DAF176003FE00D7BE41 /* displaySkeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32049175FF58B0087F209 /* displaySkeleton.cpp */; };
 		1CE42DB0176003FE00D7BE41 /* displaySkeleton.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204A175FF58B0087F209 /* displaySkeleton.h */; };
-		1CE42DB1176003FE00D7BE41 /* displaySkeleton.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204B175FF58B0087F209 /* displaySkeleton.o */; };
 		1CE42DB2176003FE00D7BE41 /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204C175FF58B0087F209 /* interface.cpp */; };
 		1CE42DB3176003FE00D7BE41 /* interface.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204D175FF58B0087F209 /* interface.h */; };
-		1CE42DB4176003FE00D7BE41 /* interface.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204E175FF58B0087F209 /* interface.o */; };
 		1CE42DB5176003FE00D7BE41 /* mocapPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3204F175FF58B0087F209 /* mocapPlayer.cpp */; };
 		1CE42DB6176003FE00D7BE41 /* mocapPlayer.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32050175FF58B0087F209 /* mocapPlayer.h */; };
-		1CE42DB7176003FE00D7BE41 /* mocapPlayer.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32051175FF58B0087F209 /* mocapPlayer.o */; };
 		1CE42DB8176003FE00D7BE41 /* motion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32052175FF58B0087F209 /* motion.cpp */; };
 		1CE42DB9176003FE00D7BE41 /* motion.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32053175FF58B0087F209 /* motion.h */; };
-		1CE42DBA176003FE00D7BE41 /* motion.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32054175FF58B0087F209 /* motion.o */; };
 		1CE42DBB176003FE00D7BE41 /* performanceCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32055175FF58B0087F209 /* performanceCounter.cpp */; };
 		1CE42DBC176003FE00D7BE41 /* performanceCounter.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32056175FF58B0087F209 /* performanceCounter.h */; };
-		1CE42DBD176003FE00D7BE41 /* performanceCounter.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32057175FF58B0087F209 /* performanceCounter.o */; };
 		1CE42DBE176003FE00D7BE41 /* pic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32058175FF58B0087F209 /* pic.cpp */; };
 		1CE42DBF176003FE00D7BE41 /* pic.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32059175FF58B0087F209 /* pic.h */; };
-		1CE42DC0176003FE00D7BE41 /* pic.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205A175FF58B0087F209 /* pic.o */; };
 		1CE42DC1176003FE00D7BE41 /* posture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205B175FF58B0087F209 /* posture.cpp */; };
 		1CE42DC2176003FE00D7BE41 /* posture.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205C175FF58B0087F209 /* posture.h */; };
-		1CE42DC3176003FE00D7BE41 /* posture.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205D175FF58B0087F209 /* posture.o */; };
 		1CE42DC4176003FE00D7BE41 /* ppm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205E175FF58B0087F209 /* ppm.cpp */; };
-		1CE42DC5176003FE00D7BE41 /* ppm.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD3205F175FF58B0087F209 /* ppm.o */; };
 		1CE42DC6176003FE00D7BE41 /* skeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32060175FF58B0087F209 /* skeleton.cpp */; };
 		1CE42DC7176003FE00D7BE41 /* skeleton.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32061175FF58B0087F209 /* skeleton.h */; };
-		1CE42DC8176003FE00D7BE41 /* skeleton.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32062175FF58B0087F209 /* skeleton.o */; };
 		1CE42DC9176003FE00D7BE41 /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32063175FF58B0087F209 /* transform.cpp */; };
 		1CE42DCA176003FE00D7BE41 /* transform.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32064175FF58B0087F209 /* transform.h */; };
-		1CE42DCB176003FE00D7BE41 /* transform.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32065175FF58B0087F209 /* transform.o */; };
 		1CE42DCC176003FE00D7BE41 /* types.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32066175FF58B0087F209 /* types.h */; };
 		1CE42DCD176003FE00D7BE41 /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32067175FF58B0087F209 /* vector.cpp */; };
 		1CE42DCE176003FE00D7BE41 /* vector.h in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32068175FF58B0087F209 /* vector.h */; };
-		1CE42DCF176003FE00D7BE41 /* vector.o in Sources */ = {isa = PBXBuildFile; fileRef = 1CD32069175FF58B0087F209 /* vector.o */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +52,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C436A4817617DAC00C4D160 /* MotionLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MotionLibrary.cpp; path = mocap/MotionLibrary.cpp; sourceTree = "<group>"; };
+		1C436A4917617DAC00C4D160 /* MotionLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MotionLibrary.h; path = mocap/MotionLibrary.h; sourceTree = "<group>"; };
 		1C94DE59176006EA006612C9 /* libfltk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk.a; sourceTree = "<group>"; };
 		1C94DE5B176006EE006612C9 /* libfltk_images.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk_images.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk_images.a; sourceTree = "<group>"; };
 		1C94DE5D176006F1006612C9 /* libfltk_gl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltk_gl.a; path = ../../../../usr/local/Cellar/fltk/1.3.2/lib/libfltk_gl.a; sourceTree = "<group>"; };
@@ -70,37 +63,26 @@
 		1CD3203D175FF5550087F209 /* mocap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mocap; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD32049175FF58B0087F209 /* displaySkeleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = displaySkeleton.cpp; path = mocap/displaySkeleton.cpp; sourceTree = "<group>"; };
 		1CD3204A175FF58B0087F209 /* displaySkeleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = displaySkeleton.h; path = mocap/displaySkeleton.h; sourceTree = "<group>"; };
-		1CD3204B175FF58B0087F209 /* displaySkeleton.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = displaySkeleton.o; path = mocap/displaySkeleton.o; sourceTree = "<group>"; };
 		1CD3204C175FF58B0087F209 /* interface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = interface.cpp; path = mocap/interface.cpp; sourceTree = "<group>"; };
 		1CD3204D175FF58B0087F209 /* interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = interface.h; path = mocap/interface.h; sourceTree = "<group>"; };
-		1CD3204E175FF58B0087F209 /* interface.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = interface.o; path = mocap/interface.o; sourceTree = "<group>"; };
 		1CD3204F175FF58B0087F209 /* mocapPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = mocapPlayer.cpp; path = mocap/mocapPlayer.cpp; sourceTree = "<group>"; };
 		1CD32050175FF58B0087F209 /* mocapPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mocapPlayer.h; path = mocap/mocapPlayer.h; sourceTree = "<group>"; };
-		1CD32051175FF58B0087F209 /* mocapPlayer.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = mocapPlayer.o; path = mocap/mocapPlayer.o; sourceTree = "<group>"; };
 		1CD32052175FF58B0087F209 /* motion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = motion.cpp; path = mocap/motion.cpp; sourceTree = "<group>"; };
 		1CD32053175FF58B0087F209 /* motion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = motion.h; path = mocap/motion.h; sourceTree = "<group>"; };
-		1CD32054175FF58B0087F209 /* motion.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = motion.o; path = mocap/motion.o; sourceTree = "<group>"; };
 		1CD32055175FF58B0087F209 /* performanceCounter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = performanceCounter.cpp; path = mocap/performanceCounter.cpp; sourceTree = "<group>"; };
 		1CD32056175FF58B0087F209 /* performanceCounter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = performanceCounter.h; path = mocap/performanceCounter.h; sourceTree = "<group>"; };
-		1CD32057175FF58B0087F209 /* performanceCounter.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = performanceCounter.o; path = mocap/performanceCounter.o; sourceTree = "<group>"; };
 		1CD32058175FF58B0087F209 /* pic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pic.cpp; path = mocap/pic.cpp; sourceTree = "<group>"; };
 		1CD32059175FF58B0087F209 /* pic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pic.h; path = mocap/pic.h; sourceTree = "<group>"; };
-		1CD3205A175FF58B0087F209 /* pic.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = pic.o; path = mocap/pic.o; sourceTree = "<group>"; };
 		1CD3205B175FF58B0087F209 /* posture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = posture.cpp; path = mocap/posture.cpp; sourceTree = "<group>"; };
 		1CD3205C175FF58B0087F209 /* posture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = posture.h; path = mocap/posture.h; sourceTree = "<group>"; };
-		1CD3205D175FF58B0087F209 /* posture.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = posture.o; path = mocap/posture.o; sourceTree = "<group>"; };
 		1CD3205E175FF58B0087F209 /* ppm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ppm.cpp; path = mocap/ppm.cpp; sourceTree = "<group>"; };
-		1CD3205F175FF58B0087F209 /* ppm.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = ppm.o; path = mocap/ppm.o; sourceTree = "<group>"; };
 		1CD32060175FF58B0087F209 /* skeleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = skeleton.cpp; path = mocap/skeleton.cpp; sourceTree = "<group>"; };
 		1CD32061175FF58B0087F209 /* skeleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = skeleton.h; path = mocap/skeleton.h; sourceTree = "<group>"; };
-		1CD32062175FF58B0087F209 /* skeleton.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = skeleton.o; path = mocap/skeleton.o; sourceTree = "<group>"; };
 		1CD32063175FF58B0087F209 /* transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = transform.cpp; path = mocap/transform.cpp; sourceTree = "<group>"; };
 		1CD32064175FF58B0087F209 /* transform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = transform.h; path = mocap/transform.h; sourceTree = "<group>"; };
-		1CD32065175FF58B0087F209 /* transform.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = transform.o; path = mocap/transform.o; sourceTree = "<group>"; };
 		1CD32066175FF58B0087F209 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = types.h; path = mocap/types.h; sourceTree = "<group>"; };
 		1CD32067175FF58B0087F209 /* vector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vector.cpp; path = mocap/vector.cpp; sourceTree = "<group>"; };
 		1CD32068175FF58B0087F209 /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = vector.h; path = mocap/vector.h; sourceTree = "<group>"; };
-		1CD32069175FF58B0087F209 /* vector.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = vector.o; path = mocap/vector.o; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,37 +114,28 @@
 				1CD3203E175FF5550087F209 /* Products */,
 				1CD32049175FF58B0087F209 /* displaySkeleton.cpp */,
 				1CD3204A175FF58B0087F209 /* displaySkeleton.h */,
-				1CD3204B175FF58B0087F209 /* displaySkeleton.o */,
 				1CD3204C175FF58B0087F209 /* interface.cpp */,
 				1CD3204D175FF58B0087F209 /* interface.h */,
-				1CD3204E175FF58B0087F209 /* interface.o */,
 				1CD3204F175FF58B0087F209 /* mocapPlayer.cpp */,
 				1CD32050175FF58B0087F209 /* mocapPlayer.h */,
-				1CD32051175FF58B0087F209 /* mocapPlayer.o */,
 				1CD32052175FF58B0087F209 /* motion.cpp */,
 				1CD32053175FF58B0087F209 /* motion.h */,
-				1CD32054175FF58B0087F209 /* motion.o */,
 				1CD32055175FF58B0087F209 /* performanceCounter.cpp */,
 				1CD32056175FF58B0087F209 /* performanceCounter.h */,
-				1CD32057175FF58B0087F209 /* performanceCounter.o */,
 				1CD32058175FF58B0087F209 /* pic.cpp */,
 				1CD32059175FF58B0087F209 /* pic.h */,
-				1CD3205A175FF58B0087F209 /* pic.o */,
 				1CD3205B175FF58B0087F209 /* posture.cpp */,
 				1CD3205C175FF58B0087F209 /* posture.h */,
-				1CD3205D175FF58B0087F209 /* posture.o */,
 				1CD3205E175FF58B0087F209 /* ppm.cpp */,
-				1CD3205F175FF58B0087F209 /* ppm.o */,
 				1CD32060175FF58B0087F209 /* skeleton.cpp */,
 				1CD32061175FF58B0087F209 /* skeleton.h */,
-				1CD32062175FF58B0087F209 /* skeleton.o */,
 				1CD32063175FF58B0087F209 /* transform.cpp */,
 				1CD32064175FF58B0087F209 /* transform.h */,
-				1CD32065175FF58B0087F209 /* transform.o */,
 				1CD32066175FF58B0087F209 /* types.h */,
 				1CD32067175FF58B0087F209 /* vector.cpp */,
 				1CD32068175FF58B0087F209 /* vector.h */,
-				1CD32069175FF58B0087F209 /* vector.o */,
+				1C436A4817617DAC00C4D160 /* MotionLibrary.cpp */,
+				1C436A4917617DAC00C4D160 /* MotionLibrary.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,39 +198,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C436A4A17617DD800C4D160 /* MotionLibrary.cpp in Sources */,
+				1C436A4B17617DD800C4D160 /* MotionLibrary.h in Sources */,
 				1CE42DAF176003FE00D7BE41 /* displaySkeleton.cpp in Sources */,
 				1CE42DB0176003FE00D7BE41 /* displaySkeleton.h in Sources */,
-				1CE42DB1176003FE00D7BE41 /* displaySkeleton.o in Sources */,
 				1CE42DB2176003FE00D7BE41 /* interface.cpp in Sources */,
 				1CE42DB3176003FE00D7BE41 /* interface.h in Sources */,
-				1CE42DB4176003FE00D7BE41 /* interface.o in Sources */,
 				1CE42DB5176003FE00D7BE41 /* mocapPlayer.cpp in Sources */,
 				1CE42DB6176003FE00D7BE41 /* mocapPlayer.h in Sources */,
-				1CE42DB7176003FE00D7BE41 /* mocapPlayer.o in Sources */,
 				1CE42DB8176003FE00D7BE41 /* motion.cpp in Sources */,
 				1CE42DB9176003FE00D7BE41 /* motion.h in Sources */,
-				1CE42DBA176003FE00D7BE41 /* motion.o in Sources */,
 				1CE42DBB176003FE00D7BE41 /* performanceCounter.cpp in Sources */,
 				1CE42DBC176003FE00D7BE41 /* performanceCounter.h in Sources */,
-				1CE42DBD176003FE00D7BE41 /* performanceCounter.o in Sources */,
 				1CE42DBE176003FE00D7BE41 /* pic.cpp in Sources */,
 				1CE42DBF176003FE00D7BE41 /* pic.h in Sources */,
-				1CE42DC0176003FE00D7BE41 /* pic.o in Sources */,
 				1CE42DC1176003FE00D7BE41 /* posture.cpp in Sources */,
 				1CE42DC2176003FE00D7BE41 /* posture.h in Sources */,
-				1CE42DC3176003FE00D7BE41 /* posture.o in Sources */,
 				1CE42DC4176003FE00D7BE41 /* ppm.cpp in Sources */,
-				1CE42DC5176003FE00D7BE41 /* ppm.o in Sources */,
 				1CE42DC6176003FE00D7BE41 /* skeleton.cpp in Sources */,
 				1CE42DC7176003FE00D7BE41 /* skeleton.h in Sources */,
-				1CE42DC8176003FE00D7BE41 /* skeleton.o in Sources */,
 				1CE42DC9176003FE00D7BE41 /* transform.cpp in Sources */,
 				1CE42DCA176003FE00D7BE41 /* transform.h in Sources */,
-				1CE42DCB176003FE00D7BE41 /* transform.o in Sources */,
 				1CE42DCC176003FE00D7BE41 /* types.h in Sources */,
 				1CE42DCD176003FE00D7BE41 /* vector.cpp in Sources */,
 				1CE42DCE176003FE00D7BE41 /* vector.h in Sources */,
-				1CE42DCF176003FE00D7BE41 /* vector.o in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
