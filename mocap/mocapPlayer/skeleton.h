@@ -90,7 +90,8 @@ public:
 
   int numBonesInSkel(Bone bone);
   int movBonesInSkel(Bone bone);
-
+  int getNumBonesInAsf() {return NUM_BONES_IN_ASF_FILE;}
+    
 protected:
 
   //parse the skeleton (.ASF) file	
