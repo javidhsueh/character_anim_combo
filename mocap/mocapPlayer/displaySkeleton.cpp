@@ -18,6 +18,9 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "displaySkeleton.h"
 #include "transform.h"
 
+////////
+#include "PointCloud.h"
+
 float DisplaySkeleton::jointColors[NUMBER_JOINT_COLORS][3] =
 {
   {0.0f, 1.0f, 0.0f},  // GREEN
@@ -298,6 +301,13 @@ void DisplaySkeleton::Render(RenderMode renderMode_)
   //draw the skeleton starting from the root
   for (int i = 0; i < numSkeletons; i++)
   {
+    //*///// M.S.
+    PointCloud *pc = new PointCloud(m_pSkeleton[i]);
+    pc->draw();
+    delete pc;
+    continue;
+    //////*/
+
     glPushMatrix();
     double translation[3];
     m_pSkeleton[i]->GetTranslation(translation);

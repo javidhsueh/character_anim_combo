@@ -18,6 +18,7 @@
     <ClCompile Include="..\..\..\mocapPlayer\MotionLibrary.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\performanceCounter.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\pic.cpp" />
+    <ClCompile Include="..\..\..\mocapPlayer\PointCloud.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\posture.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\ppm.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\skeleton.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="..\..\..\mocapPlayer\MotionLibrary.h" />
     <ClInclude Include="..\..\..\mocapPlayer\performanceCounter.h" />
     <ClInclude Include="..\..\..\mocapPlayer\pic.h" />
+    <ClInclude Include="..\..\..\mocapPlayer\PointCloud.h" />
     <ClInclude Include="..\..\..\mocapPlayer\posture.h" />
     <ClInclude Include="..\..\..\mocapPlayer\skeleton.h" />
     <ClInclude Include="..\..\..\mocapPlayer\transform.h" />
