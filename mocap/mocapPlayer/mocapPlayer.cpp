@@ -971,6 +971,24 @@ int handle(int e) {
         }
             break;
         case 'c':
+        {
+            Motion* motion = motion_lib->createTransition(0, 100, 4, 250);
+//            motion->writeAMCfile("test", 1);
+            displayer.LoadMotion(motion);
+            lastMotion++;
+            //Tell skeleton to perform the first pose ( first posture )
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
+            
+            // Set skeleton to perform the first pose ( first posture )
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex=0;
+            printf("%c",k);
+        }
             printf("%c",k);
             break;
         case '1':

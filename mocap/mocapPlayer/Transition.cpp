@@ -7,3 +7,170 @@
 //
 
 #include "Transition.h"
+#include <math.h>
+#include "vector.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+
+// Special Thanks to Johnathan, Shaun and Geof!
+vector Slerp(vector start, vector end, double percent)
+{
+    // Dot product - the cosine of the angle between 2 vectors.
+    double dot = start % end;
+    // Clamp it to be in the range of Acos()
+    dot = dot > 1.0 ? 1.0 : dot;
+    dot = dot < -1.0? -1.0 : dot;
+    // Acos(dot) returns the angle between start and end,
+    // And multiplying that by percent returns the angle between
+    // start and the final result.
+    float theta = asin(dot)*percent;
+    vector RelativeVec = end - start*dot;
+    RelativeVec.normalize();
+    // The final result.
+    return ((start*cos(theta)) + (RelativeVec*sin(theta)));
+}
+
+vector Quarternion2Euler(vector q)
+{
+    double w = q[0];
+    double x = q[1];
+    double y = q[2];
+    double z = q[3];
+    
+    double sqw = w*w;
+    double sqx = x*x;
+    double sqy = y*y;
+    double sqz = z*z;
+    
+    double PI = M_PI;
+    
+    /*
+    vector euler;
+    euler[2] = (atan2(2.0 * (x*y + z*w),(sqx - sqy - sqz + sqw)) * (180.0f/PI));
+    euler[1] = (atan2(2.0 * (y*z + x*w),(-sqx - sqy + sqz + sqw)) * (180.0f/PI));
+    euler[0] = (asin(-2.0 * (x*z - y*w)) * (180.0f/PI));
+    
+     vector euler;
+    euler[2] = atan2(2.0*(x*y + z*w),(1-2.0*(sqx+sqy))) ;//* (180.0f/PI);
+    euler[1] = asin(2.0*(y*w - x*z)) * (180.0f/PI);
+    euler[0] = atan2(2.0*(y*z + x*w), 1-2*(sqy+sqz))* (180.0f/PI);
+    */
+    
+    vector euler;
+    euler[0] = atan2(2*((w * x) + (y * z)), 1 - (2 * ((x* x) + (y * y)))) * (180.0f/PI);
+    euler[1] = asin(2 * ((w * y) - (z * x))) * (180.0f/PI);
+    euler[2] = atan2(2 * ((w * z) + (x * y)), 1 - (2 * ((y * y) + (z * z)))) * (180.0f/PI);
+    
+    return euler;
+}
+
+vector Euler2Quarternion(vector d)
+{    
+    vector quart;
+    double e1 = d[0];//x
+    double e2 = d[1];//y
+    double e3 = d[2];//z
+    double PI = M_PI;
+    
+    quart[0] = sqrt(cos(e2*PI/180)*cos(e1*PI/180)+cos(e2*PI/180)*cos(e3*PI/180)-sin(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180)+cos(e1*PI/180)* cos(e3*PI/180)+1)/2;
+    
+    quart[1] = (cos(e1*PI/180)*sin(e3*PI/180)+cos(e2*PI/180)*sin(e3*PI/180)+sin(e2*PI/180)*sin(e1*PI/180)*cos(e3*PI/180))/sqrt(cos(e2*PI/180)* cos(e1*PI/180)+cos(e2*PI/180)*cos(e3*PI/180)-sin(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180)+cos(e1*PI/180)*cos(e3*PI/180)+1)/2;
+    
+    quart[2] = (sin(e2*PI/180)*sin(e3*PI/180)-cos(e2*PI/180)*sin(e1*PI/180)*cos(e3*PI/180)-sin(e1*PI/180))/sqrt(cos(e2*PI/180)*cos(e1*PI/180)+ cos(e2*PI/180)*cos(e3*PI/180)-sin(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180)+cos(e1*PI/180)*cos(e3*PI/180)+1)/2;
+    
+    quart[3] = (sin(e2*PI/180)*cos(e1*PI/180)+sin(e2*PI/180)*cos(e3*PI/180)+cos(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180))/sqrt(cos(e2*PI/180)* cos(e1*PI/180)+cos(e2*PI/180)*cos(e3*PI/180)-sin(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180)+cos(e1*PI/180)*cos(e3*PI/180)+1)/2;
+    
+    //double examine = quart[0]*quart[0] + quart[1]*quart[1] + quart[2]*quart[2] + quart[3]*quart[3];
+    
+    return quart;
+}
+
+
+Transition::Transition(Motion* m1, int f1, Motion* m2, int f2)
+:m1(m1), m2(m2), f1(f1), f2(f2)
+{
+    if(f1 + BLENDING_FRAME_NUM > m1->GetNumFrames() || f2-BLENDING_FRAME_NUM < 0)
+        printf("Error: the frame index out of bound.");
+    else{
+        this->interpolated_pos = new Posture[BLENDING_FRAME_NUM];
+        this->blend();
+    }    
+}
+
+int Transition::writeMotionFile(char* filename)
+{
+    return this->getBlendedMotion()->writeAMCfile(filename, 1.0);
+}
+
+void Transition::blend(){
+    
+    int num_bones = m1->GetSkeleton()->getNumBonesInAsf();
+    
+    for(int i= 0 ; i < BLENDING_FRAME_NUM; i++){
+        
+        double t = (1.0*i + 1 ) / BLENDING_FRAME_NUM;
+        double alpha = 2*t*t*t - 3*t*t + 1;
+        
+        
+        Posture* p1 = m1->GetPosture(f1+i);
+        Posture* p2 = m1->GetPosture(f2-BLENDING_FRAME_NUM+i);
+        
+        //get root position
+        vector root1 = p1->root_pos;
+        vector root2 = p2->root_pos;
+        
+        //cancel x,z translation
+        root1[0] = root1[2] = root2[0] = root2[2] = 0;
+        
+        //interpolate root translation
+        //vector inerpolate_root =  (root2-root1)*(1.0*i/BLENDING_FRAME_NUM) + root1;
+        vector inerpolate_root =  root1*alpha + root2*(1.0-alpha);
+        this->interpolated_pos[i].root_pos = inerpolate_root;
+        this->interpolated_pos[i].bone_translation[0] = inerpolate_root;
+        
+        //get joint rotation
+        for(int j = 0; j < num_bones; j++){
+            
+            vector bone1_rotation = p1->bone_rotation[j];
+            vector bone2_rotation = p2->bone_rotation[j];
+            
+            
+            ///////////use quarternion/////////////////////////
+            //convert to quarternion q1, q2
+            //vector q1 = Euler2Quarternion(bone1_rotation);
+            //vector q2 = Euler2Quarternion(bone2_rotation);
+            
+            //interpolate q1, q2 => q
+            //vector q = (q2-q1)*(1.0*i/BLENDING_FRAME_NUM) + q1; //linear interpolation
+            //vector q = q1*alpha + q2*(1.0-alpha);
+            
+            //vector q = Slerp(q1, q2, alpha);
+
+            //convert q =>euler
+            //vector interpolate_rotation = Quarternion2Euler(q);
+            ///////////use quarternion/////////////////////////
+            
+            
+            ///////////use linear interpolation /////////////////////////
+            //vector interpolate_rotation = (bone2_rotation-bone1_rotation)*(1.0*i/BLENDING_FRAME_NUM) + bone1_rotation;
+            
+            ///////////use weighted interpolation /////////////////////////
+            //vector interpolate_rotation = Slerp(bone1_rotation, bone2_rotation, alpha);
+            vector interpolate_rotation = bone1_rotation*alpha + bone2_rotation* (1.0-alpha);
+            
+            this->interpolated_pos[i].bone_rotation[j] = interpolate_rotation;
+        }
+        
+    }    
+}
+
+Motion* Transition::getBlendedMotion(){
+    
+    Motion* m = new Motion(BLENDING_FRAME_NUM, this->m1->GetSkeleton() );
+    for(int i = 0 ; i< BLENDING_FRAME_NUM; i++){
+        m->SetPosture(i, this->interpolated_pos[i]);
+    }
+    return m;
+    
+}

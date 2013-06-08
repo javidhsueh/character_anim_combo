@@ -28,6 +28,9 @@ public:
     
     Motion* getMotion(int index);
     
+    //method
+    Motion* createTransition(int idx1, int f1, int idx2, int f2);
+    
 private:
     int total_motion_num;
     //loader

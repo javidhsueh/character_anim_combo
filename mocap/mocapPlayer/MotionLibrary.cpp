@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string>
+#include "Transition.h"
 
 #include "MotionLibrary.h"
 
@@ -64,4 +65,21 @@ Motion* MotionLibrary::getMotion(int index){
         printf("ERROR: can't find the motion data: %d", index);
         return 0;
     }
+}
+
+Motion* MotionLibrary::createTransition(int idx1, int f1, int idx2, int f2){
+    
+    if(idx1 > total_motion_num || idx2 > total_motion_num ){
+        printf("Index out of bound.");
+        return 0;
+    }
+    Motion* m1 = this->container[idx1];
+    Motion* m2 = this->container[idx2];
+    if(f1 > m1->GetNumFrames() || f2 > m2->GetNumFrames() ){
+        printf("Frame index out of bound.");
+        return 0;
+    }
+    Transition* t =  new Transition(m1, f1, m2, f2);
+    return t->getBlendedMotion();
+    
 }

@@ -58,24 +58,30 @@ public:
   double x() const { return p[0]; };
   double y() const { return p[1]; };
   double z() const { return p[2]; };
+  double w() const { return p[2]; };
   void   getValue( double d[3] ) { d[0]=p[0]; d[1]=p[1]; d[2]=p[2]; }
   void   setValue( double d[3] ) { p[0]=d[0]; p[1]=d[1]; p[2]=d[2]; }
 
   double getValue( int n ) const { return p[n]; }
   vector setValue( double x, double y, double z )
   { p[0]=x, p[1]=y, p[2]=z; return *this; }
+  vector setValue( double x, double y, double z, double w )
+  { p[0]=x, p[1]=y, p[2]=z; p[3]=w; return *this; }
+
   double setValue( int n, double x )
   { return p[n]=x; }
 
   double length() const;
+  void normalize();
 
   // change functions
   void set_x( double x ) { p[0]=x; };
   void set_y( double x ) { p[1]=x; };
   void set_z( double x ) { p[2]=x; };
+  void set_w( double x ) { p[3]=x; };
 
   //data members
-  double p[3]; //X, Y, Z components of the vector
+  double p[4]; //X, Y, Z, W components of the vector
 };
 
 #endif

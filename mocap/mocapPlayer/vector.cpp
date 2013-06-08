@@ -18,6 +18,7 @@ vector operator-( vector const& a, vector const& b )
   c.p[0] = a.p[0] - b.p[0];
   c.p[1] = a.p[1] - b.p[1];
   c.p[2] = a.p[2] - b.p[2];
+  c.p[3] = a.p[3] - b.p[3];
 
   return c;
 }
@@ -29,6 +30,7 @@ vector operator+( vector const& a, vector const& b )
   c.p[0] = a.p[0] + b.p[0];
   c.p[1] = a.p[1] + b.p[1];
   c.p[2] = a.p[2] + b.p[2];
+  c.p[3] = a.p[3] + b.p[3];
 
   return c;
 }
@@ -40,6 +42,7 @@ vector operator/( vector const& a, double b )
   c.p[0] = a.p[0] / b;
   c.p[1] = a.p[1] / b;
   c.p[2] = a.p[2] / b;
+  c.p[3] = a.p[3] / b;
 
   return c;
 }
@@ -52,6 +55,7 @@ vector operator*( vector const& a, double b )
   c.p[0] = a.p[0] * b;
   c.p[1] = a.p[1] * b;
   c.p[2] = a.p[2] * b;
+  c.p[3] = a.p[3] * b;
 
   return c;
 }
@@ -64,29 +68,38 @@ vector operator*( vector const& a, vector const& b )
   c.p[0] = a.p[1]*b.p[2] - a.p[2]*b.p[1];
   c.p[1] = a.p[2]*b.p[0] - a.p[0]*b.p[2];
   c.p[2] = a.p[0]*b.p[1] - a.p[1]*b.p[0];
-
+//  c.p[3] = a.p[0]*b.p[1] - a.p[1]*b.p[0];
+    
   return c;
 }
 
 //dot product
 double operator%( vector const& a, vector const& b )
 {
-  return ( a.p[0]*b.p[0] + a.p[1]*b.p[1] + a.p[2]*b.p[2] );
+  return ( a.p[0]*b.p[0] + a.p[1]*b.p[1] + a.p[2]*b.p[2] + a.p[3]*b.p[3] );
 }
 
 double len( vector const& v )
 {
-  return sqrt( v.p[0]*v.p[0] + v.p[1]*v.p[1] + v.p[2]*v.p[2] );
+  return sqrt( v.p[0]*v.p[0] + v.p[1]*v.p[1] + v.p[2]*v.p[2] + v.p[3]*v.p[3]);
 }
 
 double vector::length() const
 {
-  return sqrt( p[0]*p[0] + p[1]*p[1] + p[2]*p[2] );
+  return sqrt( p[0]*p[0] + p[1]*p[1] + p[2]*p[2] + p[3]*p[3] );
 }
 
 double angle( vector const& a, vector const& b )
 {
   return acos( (a%b)/(len(a)*len(b)) );
+}
+
+
+void vector::normalize(){
+    p[0] = p[0]/this->length();
+    p[1] = p[1]/this->length();
+    p[2] = p[2]/this->length();
+    p[3] = p[3]/this->length();
 }
 
 
