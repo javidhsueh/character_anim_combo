@@ -1,0 +1,283 @@
+
+
+
+% ---------------------------------------------------------------
+%
+% $Id: latex8.sty,v 1.3 1998/06/25 09:11:13 dean Exp $
+%
+% by Paolo.Ienne@di.epfl.ch
+% Modified by: Dean.Thompson@csse.monash.edu.au
+% Comments/Suggestions/Bugs  Directed to: ieee-style@csse.monash.edu.au
+%
+% 25-Jun-98: updated to provide consistency for subsubsection's (dean)
+%
+% ---------------------------------------------------------------
+%
+% no guarantee is given that the format corresponds perfectly to
+% IEEE 8.5" x 11" Proceedings, but most features should be ok.
+%
+% ---------------------------------------------------------------
+% with LaTeX2e:
+% =============
+%
+% use as
+%   \documentclass[times,10pt,twocolumn]{article}
+%   \usepackage{latex8}
+%   \usepackage{times}
+%
+% ---------------------------------------------------------------
+
+% with LaTeX 2.09:
+% ================
+%
+% use as
+%   \documentstyle[times,twocolumn,latex8]{article}
+%
+% ---------------------------------------------------------------
+% with both versions:
+% ===================
+%
+% specify \pagestyle{empty} to omit page numbers in the final
+% version
+%
+% specify references as
+%   \bibliographystyle{latex8}
+%   \bibliography{...your files...}
+%
+% use Section{}, SubSection{} and SubSubSection instead of
+%    standard section{}, subsection{} and subsubsection{} to
+%    obtain headings in the form "1.3. My heading"
+%
+% Please note that you may have to obtain the font file titled
+%  ``phvb7t.tfm'' or ``phvb.tfm'' if you don't already have the
+%  helvetica bold font.  Consult your local CTAN site.
+%  (E.g: http://www.dante.de/cgi-bin/ctan-index)
+% ---------------------------------------------------------------
+
+\typeout{IEEE 8.5 x 11-Inch Proceedings Style `ieee8x11.sty'.}
+
+% ten point helvetica bold required for captions
+% in some sites the name of the helvetica bold font may differ,
+% change the name here:
+%font\tenhv  = phvb at 10pt
+\font\tenhv  = phvb7t at 10pt
+
+% eleven point times bold required for second-order headings
+% \font\elvbf  = cmbx10 scaled 1100
+\font\elvbf  = ptmb scaled 1100
+
+% Portions of the art10.sty file required for this file
+
+\lineskip 1pt
+\normallineskip 1pt
+\def\baselinestretch{1}
+
+\def\@normalsize{\@setsize\normalsize{12pt}\xpt\@xpt
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\let\@listi\@listI}
+
+\def\small{\@setsize\small{11pt}\ixpt\@ixpt
+\abovedisplayskip 8.5\p@ plus3\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus2\p@
+\belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\def\footnotesize{\@setsize\footnotesize{9.5pt}\viiipt\@viiipt
+\abovedisplayskip 6\p@ plus2\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus\p@
+\belowdisplayshortskip 3\p@ plus\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 3\p@ plus\p@ minus\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\def\scriptsize{\@setsize\scriptsize{8pt}\viipt\@viipt}
+\def\tiny{\@setsize\tiny{6pt}\vpt\@vpt}
+\def\large{\@setsize\large{14pt}\xiipt\@xiipt}
+\def\Large{\@setsize\Large{18pt}\xivpt\@xivpt}
+\def\LARGE{\@setsize\LARGE{22pt}\xviipt\@xviipt}
+\def\huge{\@setsize\huge{25pt}\xxpt\@xxpt}
+\def\Huge{\@setsize\Huge{30pt}\xxvpt\@xxvpt}
+
+\normalsize
+\if@twoside
+ \oddsidemargin  44pt
+ \evensidemargin 82pt
+ \marginparwidth 107pt
+\else
+ \oddsidemargin  63pt
+ \evensidemargin 63pt
+ \marginparwidth 90pt
+\fi
+\marginparsep 11pt
+
+\topmargin 27pt
+
+\headheight 12pt
+\headsep 25pt
+\topskip = 10pt
+
+\footskip 30pt
+
+\textheight = 43\baselineskip
+\advance\textheight by \topskip
+\textwidth 345pt
+\columnsep 10pt\columnseprule 0pt
+\footnotesep 6.65pt
+\skip\footins 9pt plus 4pt minus 2pt
+\floatsep 12pt plus 2pt minus 2pt
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 12pt plus 2pt minus 2pt
+%\@maxsep 20pt
+\dblfloatsep 12pt plus 2pt minus 2pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+%\@dblmaxsep 20pt
+\@fptop 0pt plus 1fil
+\@fpsep 8pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 8pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 5pt
+\parskip 0pt plus 1pt
+\parindent 15pt
+\partopsep 2pt plus 1pt minus 1pt
+\@lowpenalty   51
+\@medpenalty  151
+\@highpenalty 301
+\@beginparpenalty -\@lowpenalty
+\@endparpenalty   -\@lowpenalty
+\@itempenalty     -\@lowpenalty
+
+% set dimensions of columns, gap between columns, and paragraph indent
+%\setlength{\topmargin}{+.2cm}
+\setlength{\textheight}{8.875in}
+\setlength{\textwidth}{6.875in}
+\setlength{\columnsep}{0.3125in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\parindent}{1pc}
+\setlength{\oddsidemargin}{-0.5cm}
+\setlength{\evensidemargin}{0.0cm}
+%\setlength{\oddsidemargin}{-.505in}
+%\setlength{\evensidemargin}{-.304in}
+
+% memento from size10.clo
+% \normalsize{\@setfontsize\normalsize\@xpt\@xiipt}
+% \small{\@setfontsize\small\@ixpt{11}}
+% \footnotesize{\@setfontsize\footnotesize\@viiipt{9.5}}
+% \scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+% \tiny{\@setfontsize\tiny\@vpt\@vipt}
+% \large{\@setfontsize\large\@xiipt{14}}
+% \Large{\@setfontsize\Large\@xivpt{18}}
+% \LARGE{\@setfontsize\LARGE\@xviipt{22}}
+% \huge{\@setfontsize\huge\@xxpt{25}}
+% \Huge{\@setfontsize\Huge\@xxvpt{30}}
+
+\def\@maketitle
+ {
+ \newpage
+ \null
+ \vskip .375in
+ \begin{center}
+    {\Large \bf \@title \par}
+    % additional two empty lines at the end of the title
+    \vspace*{24pt}
+    {
+    \large
+    \lineskip .5em
+    \begin{tabular}[t]{c}
+       \@author
+    \end{tabular}
+    \par
+    }
+    % additional small space at the end of the author name
+    \vskip .5em
+    {
+     \large
+    \begin{tabular}[t]{c}
+       \@affiliation
+    \end{tabular}
+    \par
+    \ifx \@empty \@email
+    \else
+       \begin{tabular}{r@{~}l}
+          E-mail: & {\tt \@email}
+       \end{tabular}
+       \par
+    \fi
+    }
+    % additional empty line at the end of the title block
+    \vspace*{12pt}
+ \end{center}
+ }
+
+\def\abstract
+ {%
+ \centerline{\large\bf Abstract}%
+ \vspace*{12pt}%
+ \it%
+ }
+
+\def\endabstract
+ {
+ % additional empty line at the end of the abstract
+ \vspace*{12pt}
+ }
+
+\def\affiliation#1{\gdef\@affiliation{#1}} \gdef\@affiliation{}
+
+\def\email#1{\gdef\@email{#1}}
+\gdef\@email{}
+
+\newlength{\@ctmp}
+\newlength{\@figindent}
+\setlength{\@figindent}{1pc}
+
+\long\def\@makecaption#1#2{
+ \vskip 10pt
+ \setbox\@tempboxa\hbox{\tenhv\noindent #1.~#2}
+ \setlength{\@ctmp}{\hsize}
+ \addtolength{\@ctmp}{-\@figindent}\addtolength{\@ctmp}{-\@figindent}
+ % IF longer than one indented paragraph line
+ \ifdim \wd\@tempboxa >\@ctmp
+    % THEN set as an indented paragraph
+    \begin{list}{}{\leftmargin\@figindent \rightmargin\leftmargin}
+       \item[]\tenhv #1.~#2\par
+    \end{list}
+ \else
+    % ELSE center
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}
+ \fi}
+
+% correct heading spacing and type
+\def\section{\@startsection {section}{1}{\z@}
+ {14pt plus 2pt minus 2pt}{14pt plus 2pt minus 2pt} {\large\bf}}
+\def\subsection{\@startsection {subsection}{2}{\z@}
+ {13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt} {\elvbf}}
+\def\subsubsection{\@startsection {subsubsection}{3}{\z@}
+ {12pt plus 2pt minus 2pt}{12pt plus 2pt minus 2pt} {\small\bf}}
+
+\setcounter{secnumdepth}{3}
+
+% add the period after section numbers
+\newcommand{\Section}[1]{\section{\hskip -1em.~#1}}
+\newcommand{\SubSection}[1]{\subsection{\hskip -1em.~#1}}
+\newcommand{\SubSubSection}[1]{\subsubsection{\hskip -1em.~#1}}
+
+% end of file latex8.sty
+% ---------------------------------------------------------------
+
+
+
+
+
+
+
