@@ -41,6 +41,24 @@ PointCloud::PointCloud(Skeleton *skl)
     glPopMatrix();
 }
 
+PointCloud::PointCloud(PointCloud **pc, int k)
+{
+    numPoints = 0;
+    for (int i = 0; i < k; i++)
+        numPoints += pc[i]->getNumPoints();
+    
+    points = new vector[numPoints];
+    
+    numPoints = 0;
+    for (int i = 0; i < k; i++)
+    {
+        for (int j = 0; j < pc[i]->getNumPoints(); j++)
+        {
+            points[numPoints++] = pc[i]->getPoints()[j];
+        }
+    }
+}
+
 PointCloud::~PointCloud()
 {
     delete [] points;

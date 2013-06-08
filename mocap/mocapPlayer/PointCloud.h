@@ -6,8 +6,11 @@
 class PointCloud
 {
 public:
-    PointCloud(Skeleton *skl);  // generate a point cloud according to the skeleton
+    PointCloud(Skeleton *skl);                  // generate a point cloud according to the skeleton
+    PointCloud(PointCloud **pc, int k);         // construct a point cloud formed over a window of frames of length k
     ~PointCloud();
+    int getNumPoints()  { return numPoints; }
+    vector *getPoints() { return points; }
     void draw();
 
 private:

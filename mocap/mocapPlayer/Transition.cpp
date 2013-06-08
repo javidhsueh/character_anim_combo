@@ -65,7 +65,7 @@ vector Quarternion2Euler(vector q)
     return euler;
 }
 
-vector Euler2Quarternion(vector d)
+vector Euler2Quarternion_(vector d)
 {    
     vector quart;
     double e1 = d[0];//x
@@ -84,6 +84,10 @@ vector Euler2Quarternion(vector d)
     //double examine = quart[0]*quart[0] + quart[1]*quart[1] + quart[2]*quart[2] + quart[3]*quart[3];
     
     return quart;
+}
+
+vector Euler2Quarternion(vector d)
+{
 }
 
 
@@ -114,7 +118,7 @@ void Transition::blend(){
         
         
         Posture* p1 = m1->GetPosture(f1+i);
-        Posture* p2 = m1->GetPosture(f2-BLENDING_FRAME_NUM+i);
+        Posture* p2 = m2->GetPosture(f2-BLENDING_FRAME_NUM+i);
         
         //get root position
         vector root1 = p1->root_pos;

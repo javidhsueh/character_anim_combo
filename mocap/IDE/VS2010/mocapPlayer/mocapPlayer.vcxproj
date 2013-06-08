@@ -15,6 +15,7 @@
     <ClCompile Include="..\..\..\mocapPlayer\interface.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\mocapPlayer.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\motion.cpp" />
+    <ClCompile Include="..\..\..\mocapPlayer\MotionGraph.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\MotionLibrary.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\performanceCounter.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\pic.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="..\..\..\mocapPlayer\ppm.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\skeleton.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\transform.cpp" />
+    <ClCompile Include="..\..\..\mocapPlayer\Transition.cpp" />
     <ClCompile Include="..\..\..\mocapPlayer\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +32,7 @@
     <ClInclude Include="..\..\..\mocapPlayer\interface.h" />
     <ClInclude Include="..\..\..\mocapPlayer\mocapPlayer.h" />
     <ClInclude Include="..\..\..\mocapPlayer\motion.h" />
+    <ClInclude Include="..\..\..\mocapPlayer\MotionGraph.h" />
     <ClInclude Include="..\..\..\mocapPlayer\MotionLibrary.h" />
     <ClInclude Include="..\..\..\mocapPlayer\performanceCounter.h" />
     <ClInclude Include="..\..\..\mocapPlayer\pic.h" />
@@ -37,6 +40,7 @@
     <ClInclude Include="..\..\..\mocapPlayer\posture.h" />
     <ClInclude Include="..\..\..\mocapPlayer\skeleton.h" />
     <ClInclude Include="..\..\..\mocapPlayer\transform.h" />
+    <ClInclude Include="..\..\..\mocapPlayer\Transition.h" />
     <ClInclude Include="..\..\..\mocapPlayer\types.h" />
     <ClInclude Include="..\..\..\mocapPlayer\vector.h" />
   </ItemGroup>
