@@ -9,6 +9,23 @@
 #ifndef mocap_Floyd_h
 #define mocap_Floyd_h
 
+#define GRAPH_MAX 5000
 
+class Floyd{
+
+public:
+    Floyd(char* filename);
+    int* getShortestPath(int node1, int node2);    
+    
+protected:
+    int parseFile(char* filename);
+    void solve();
+    
+private:
+    //graph
+    int node_num;
+    double graph[GRAPH_MAX][GRAPH_MAX];
+    
+};
 
 #endif

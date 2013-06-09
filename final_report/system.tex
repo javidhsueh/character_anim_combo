@@ -1,1 +1,36 @@
-Here's system in another file
+In this section, we explain the detail of each step in our system. The system 
+flow is depicted in Fig.[xx]. 
+%Fig : system flow
+
+The remainder of this section is divided into four pars. 
+First, we explain the algorithm of detecting candidate transitions between 
+motion clips. The following two sections, we discuss about how to blend the 
+transition, and synthesize the motion with consistent momentum.
+Finally, we explain how to extend the topology to make the virtual character 
+looks natural.
+
+
+\subsection{Detecting Candidate Transitions}
+In this section, we discuss about how to detect the transition points between two 
+motion clips. 
+
+
+
+\subsection{Motion Transition}
+After detecting the transition points between two motion clips, we need to 
+synthesise the transition motion from $A_i$ to $B_j$. 
+Use Floyd-Warshall algorithm to construct the all-pairs shortest paths. 
+
+
+%the data structure of a node:
+
+\subsection{Consistent Momemtum between Motions}
+Due to we can't get the motion capture files they are consistent in the 
+momentum, it's required to synthesise the motion with the same momentum or even 
+exaggerate the motion to make it looks powerful in the fighting.
+
+
+\subsection{Infinite Motion Graph}
+In order to make the character looks alive, we introduce the rest motion to make 
+the character can transit to rest motion if the user doesn't give any command.
+

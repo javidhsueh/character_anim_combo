@@ -16,6 +16,16 @@ Fl_Button * loadMotion_button = (Fl_Button *)0;
 Fl_Button * reloadMotion_button = (Fl_Button *)0;
 Fl_Button * resetScene_button = (Fl_Button *)0;
 
+//javid customized:
+Fl_Light_Button * action1_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action2_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action3_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action4_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action5_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action6_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action7_button = (Fl_Light_Button *)0;
+Fl_Light_Button * action8_button = (Fl_Light_Button *)0;
+
 //button group - motion play
 Fl_Button * rewind_button = (Fl_Button *)0;
 Fl_Button * pause_button = (Fl_Button *)0;           
@@ -53,25 +63,64 @@ Fl_Window * make_window()
     w = o;
     { 
       Fl_Group * o = new Fl_Group(10, 485, 615, 140);
-      { 
-        Fl_Button * o = loadSkeleton_button = new Fl_Button(10, 495, 120, 40, "Load Skeleton");
-        o->callback((Fl_Callback *)load_callback);
+//      { 
+//        Fl_Button * o = loadSkeleton_button = new Fl_Button(10, 495, 120, 40, "Load Skeleton");
+//        o->callback((Fl_Callback *)load_callback);
+//      }
+//
+//      { 
+//        Fl_Button * o = loadMotion_button = new Fl_Button(140, 495, 120, 40, "Load Motion");
+//        o->callback((Fl_Callback *)load_callback);
+//      }
+//
+//      // "Reload motion" always reload the last skeleton loaded
+//      { 
+//        Fl_Button * o = reloadMotion_button = new Fl_Button(270, 495, 120, 40, "Reload Motion");
+//        o->callback((Fl_Callback *)reload_callback);
+//      }
+//
+//      { 
+//        Fl_Button * o = resetScene_button = new Fl_Button(400, 495, 120, 40, "Reset Scene");
+//        o->callback((Fl_Callback *)resetScene_callback);
+//      }
+      {
+        Fl_Light_Button* o = action1_button = new Fl_Light_Button(10, 495, 80, 25, "Kick(1)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
-
-      { 
-        Fl_Button * o = loadMotion_button = new Fl_Button(140, 495, 120, 40, "Load Motion");
-        o->callback((Fl_Callback *)load_callback);
+        
+      {
+        Fl_Light_Button* o = action2_button = new Fl_Light_Button(95, 495, 80, 25, "Punch(2)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
-
-      // "Reload motion" always reload the last skeleton loaded
-      { 
-        Fl_Button * o = reloadMotion_button = new Fl_Button(270, 495, 120, 40, "Reload Motion");
-        o->callback((Fl_Callback *)reload_callback);
+        
+      {
+        Fl_Light_Button* o = action3_button = new Fl_Light_Button(180, 495, 80, 25, "Slash(3)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
-
-      { 
-        Fl_Button * o = resetScene_button = new Fl_Button(400, 495, 120, 40, "Reset Scene");
-        o->callback((Fl_Callback *)resetScene_callback);
+        
+      {
+        Fl_Light_Button* o = action4_button = new Fl_Light_Button(265, 495, 80, 25, "Jump(4)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
+      }
+        
+      {
+        Fl_Light_Button* o = action5_button = new Fl_Light_Button(350, 495, 80, 25, "Run(5)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
+      }
+        
+      {
+        Fl_Light_Button* o = action6_button = new Fl_Light_Button(435, 495, 80, 25, "Punch(6)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
+      }
+        
+      {
+        Fl_Light_Button* o = action7_button = new Fl_Light_Button(520, 495, 80, 25, "Punch(7)");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
+      }
+    
+      {
+        Fl_Light_Button* o = action8_button = new Fl_Light_Button(605, 495, 80, 25, "RestPose");
+        o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
 
       { 
@@ -147,35 +196,35 @@ Fl_Window * make_window()
       o->callback((Fl_Callback*)playSpeed_callback);
     }
     
-    { 
-      Fl_Value_Input * o = sub_input = new Fl_Value_Input(690, 55, 45, 25, "Skeleton ID:");
-      o->callback((Fl_Callback*)skeletonID_callback);
-      sub_input->align(Fl_Align(FL_ALIGN_TOP_RIGHT));
-    }
-	  { 
-      Fl_Value_Input * o = tx_input = new Fl_Value_Input(690, 95, 45, 25, "tx:");
-      o->callback((Fl_Callback*)tx_callback);
-    }
-	  { 
-      Fl_Value_Input * o = ty_input = new Fl_Value_Input(690, 122, 45, 25, "ty:");
-      o->callback((Fl_Callback*)ty_callback);
-    }
-	  { 
-      Fl_Value_Input * o = tz_input = new Fl_Value_Input(690, 152, 45, 25, "tz:");
-      o->callback((Fl_Callback*)tz_callback);
-    }
-	  { 
-      Fl_Value_Input * o = rx_input = new Fl_Value_Input(690, 190, 45, 25, "rx:");
-      o->callback((Fl_Callback*)rx_callback);
-    }
-	  { 
-      Fl_Value_Input * o = ry_input = new Fl_Value_Input(690, 217, 45, 25, "ry:");
-      o->callback((Fl_Callback*)ry_callback);
-    }
-	  { 
-      Fl_Value_Input * o = rz_input = new Fl_Value_Input(690, 247, 45, 25, "rz:");
-      o->callback((Fl_Callback*)rz_callback);
-    }
+//    { 
+//      Fl_Value_Input * o = sub_input = new Fl_Value_Input(690, 55, 45, 25, "Skeleton ID:");
+//      o->callback((Fl_Callback*)skeletonID_callback);
+//      sub_input->align(Fl_Align(FL_ALIGN_TOP_RIGHT));
+//    }
+//    {
+//      Fl_Value_Input * o = tx_input = new Fl_Value_Input(690, 95, 45, 25, "tx:");
+//      o->callback((Fl_Callback*)tx_callback);
+//    }
+//	  { 
+//      Fl_Value_Input * o = ty_input = new Fl_Value_Input(690, 122, 45, 25, "ty:");
+//      o->callback((Fl_Callback*)ty_callback);
+//    }
+//	  { 
+//      Fl_Value_Input * o = tz_input = new Fl_Value_Input(690, 152, 45, 25, "tz:");
+//      o->callback((Fl_Callback*)tz_callback);
+//    }
+//	  { 
+//      Fl_Value_Input * o = rx_input = new Fl_Value_Input(690, 190, 45, 25, "rx:");
+//      o->callback((Fl_Callback*)rx_callback);
+//    }
+//	  { 
+//      Fl_Value_Input * o = ry_input = new Fl_Value_Input(690, 217, 45, 25, "ry:");
+//      o->callback((Fl_Callback*)ry_callback);
+//    }
+//	  { 
+//      Fl_Value_Input * o = rz_input = new Fl_Value_Input(690, 247, 45, 25, "rz:");
+//      o->callback((Fl_Callback*)rz_callback);
+//    }
 
     { 
       Fl_Value_Input * o = joint_idx = new Fl_Value_Input(195, 575, 45, 25, "Show Joint");

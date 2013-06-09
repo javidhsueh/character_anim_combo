@@ -13,7 +13,6 @@
 #include <stdio.h>
 
 
-// Special Thanks to Johnathan, Shaun and Geof!
 vector Slerp(vector start, vector end, double percent)
 {
     // Dot product - the cosine of the angle between 2 vectors.
@@ -24,7 +23,7 @@ vector Slerp(vector start, vector end, double percent)
     // Acos(dot) returns the angle between start and end,
     // And multiplying that by percent returns the angle between
     // start and the final result.
-    float theta = asin(dot)*percent;
+    double theta = acos(dot)*percent;
     vector RelativeVec = end - start*dot;
     RelativeVec.normalize();
     // The final result.
@@ -33,41 +32,44 @@ vector Slerp(vector start, vector end, double percent)
 
 vector Quarternion2Euler(vector q)
 {
+    vector euler;
     double w = q[0];
     double x = q[1];
     double y = q[2];
     double z = q[3];
     
-    double sqw = w*w;
-    double sqx = x*x;
-    double sqy = y*y;
-    double sqz = z*z;
-    
-    double PI = M_PI;
+    double sqw = w * w;
+	double sqx = x * x;
+	double sqy = y * y;
+	double sqz = z * z;
     
     /*
-    vector euler;
-    euler[2] = (atan2(2.0 * (x*y + z*w),(sqx - sqy - sqz + sqw)) * (180.0f/PI));
-    euler[1] = (atan2(2.0 * (y*z + x*w),(-sqx - sqy + sqz + sqw)) * (180.0f/PI));
-    euler[0] = (asin(-2.0 * (x*z - y*w)) * (180.0f/PI));
-    
-     vector euler;
-    euler[2] = atan2(2.0*(x*y + z*w),(1-2.0*(sqx+sqy))) ;//* (180.0f/PI);
-    euler[1] = asin(2.0*(y*w - x*z)) * (180.0f/PI);
-    euler[0] = atan2(2.0*(y*z + x*w), 1-2*(sqy+sqz))* (180.0f/PI);
+    euler[0] = atan2(2*((w * x) + (y * z)), 1 - (2 * ((x* x) + (y * y)))) * (180.0f/M_PI);
+    euler[1] = asin(2 * ((w * y) - (z * x))) * (180.0f/M_PI);
+    euler[2] = atan2(2 * ((w * z) + (x * y)), 1 - (2 * ((y * y) + (z * z)))) * (180.0f/M_PI);    
+    euler[3] = 0;
     */
     
-    vector euler;
-    euler[0] = atan2(2*((w * x) + (y * z)), 1 - (2 * ((x* x) + (y * y)))) * (180.0f/PI);
-    euler[1] = asin(2 * ((w * y) - (z * x))) * (180.0f/PI);
-    euler[2] = atan2(2 * ((w * z) + (x * y)), 1 - (2 * ((y * y) + (z * z)))) * (180.0f/PI);
+    /*
+	euler[0] = (double)atan2l(2.0 * ( y*z + x*w ) , ( -sqx - sqy + sqz + sqw )) * (180.0f/M_PI);
+	euler[1] = (double)asinl(-2.0 * ( x*z - y*w )) * (180.0f/M_PI);
+	euler[2] = (double)atan2l(2.0 * ( x*y + z*w ) , (  sqx - sqy - sqz + sqw )) * (180.0f/M_PI);
+    euler[3] = 0;
+	*/
     
+    
+    euler[0] = (double)atan2( (2*(x*w-y*z)), 1-2*sqx-2*sqy) * (180.0f/M_PI);
+    euler[1] = (double)asin(2*(x*z+y*w)) * (180.0f/M_PI);
+    euler[2] = (double)atan2( ( 2*(z*w-x*y)), 1-2*sqy-2*sqz ) * (180.0f/M_PI);
+    euler[3] = 0;
+        
     return euler;
 }
 
 vector Euler2Quarternion(vector d)
-{    
+{
     vector quart;
+    /*
     double e1 = d[0];//x
     double e2 = d[1];//y
     double e3 = d[2];//z
@@ -80,10 +82,56 @@ vector Euler2Quarternion(vector d)
     quart[2] = (sin(e2*PI/180)*sin(e3*PI/180)-cos(e2*PI/180)*sin(e1*PI/180)*cos(e3*PI/180)-sin(e1*PI/180))/sqrt(cos(e2*PI/180)*cos(e1*PI/180)+ cos(e2*PI/180)*cos(e3*PI/180)-sin(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180)+cos(e1*PI/180)*cos(e3*PI/180)+1)/2;
     
     quart[3] = (sin(e2*PI/180)*cos(e1*PI/180)+sin(e2*PI/180)*cos(e3*PI/180)+cos(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180))/sqrt(cos(e2*PI/180)* cos(e1*PI/180)+cos(e2*PI/180)*cos(e3*PI/180)-sin(e2*PI/180)*sin(e1*PI/180)*sin(e3*PI/180)+cos(e1*PI/180)*cos(e3*PI/180)+1)/2;
-    
+    */
     //double examine = quart[0]*quart[0] + quart[1]*quart[1] + quart[2]*quart[2] + quart[3]*quart[3];
+  /*
+    double PIOVER180 = M_PI/180;
+    float p = d.z() * PIOVER180 / 2.0;
+	float y = d.y() * PIOVER180 / 2.0;
+	float r = d.x() * PIOVER180 / 2.0;
     
-    return quart;
+	float sinp = sin(p);
+	float siny = sin(y);
+	float sinr = sin(r);
+	float cosp = cos(p);
+	float cosy = cos(y);
+	float cosr = cos(r);
+    
+	quart[0] = sinr * cosp * cosy - cosr * sinp * siny;
+	quart[1] = cosr * sinp * cosy + sinr * cosp * siny;
+	quart[2] = cosr * cosp * siny - sinr * sinp * cosy;
+	quart[3] = cosr * cosp * cosy + sinr * sinp * siny;
+    quart.normalize();
+   */
+    vector q_x;// sin(angx/2) 0 0 cos(angx/2)
+    q_x[0] = sin(d.x()/2);
+    q_x[1] = q_x[2] = 0;
+    q_x[3] = cos(d.x()/2);
+    
+    vector q_y; //  0 sin(angy/2) 0 cos(angy/2)
+    q_y[0] = q_y[2] = 0;
+    q_y[1] = sin(d.y()/2);
+    q_y[3] = cos(d.y()/2);
+    
+    vector q_z;  // 0 0 sin(angz/2) cos(angz/2)
+    q_z[0] = q_z[1] = 0;
+    q_z[2] = sin(d.z()/2);
+    q_z[3] = cos(d.z()/2);
+    
+    vector qe;
+    qe[0] = q_x[0] * q_y[0] - q_x[1] * q_y[1] - q_x[2] * q_y[2] - q_x[3] * q_y[3];
+    qe[1] = q_x[0] * q_y[1] + q_x[1] * q_y[0] + q_x[2] * q_y[3] - q_x[3] * q_y[2];
+    qe[2] = q_x[0] * q_y[2] - q_x[1] * q_y[3] + q_x[2] * q_y[0] + q_x[3] * q_y[1];
+    qe[3] = q_x[0] * q_y[3] + q_x[1] * q_y[2] - q_x[2] * q_y[1] + q_x[3] * q_y[0];
+    
+    vector qe2;
+    qe2[0] = qe[0] * q_z[0] - qe[1] * q_z[1] - qe[2] * q_z[2] - qe[3] * q_z[3];
+    qe2[1] = qe[0] * q_z[1] + qe[1] * q_z[0] + qe[2] * q_z[3] - qe[3] * q_z[2];
+    qe2[2] = qe[0] * q_z[2] - qe[1] * q_z[3] + qe[2] * q_z[0] + qe[3] * q_z[1];
+    qe2[3] = qe[0] * q_z[3] + qe[1] * q_z[2] - qe[2] * q_z[1] + qe[3] * q_z[0];
+    
+    //double examine = qe2[0]*qe2[0] + qe2[1]*qe2[1] + qe2[2]*qe2[2] + qe2[3]*qe2[3];
+    return qe2;
 }
 
 
@@ -114,7 +162,7 @@ void Transition::blend(){
         
         
         Posture* p1 = m1->GetPosture(f1+i);
-        Posture* p2 = m1->GetPosture(f2-BLENDING_FRAME_NUM+i);
+        Posture* p2 = m2->GetPosture(f2-BLENDING_FRAME_NUM+i);
         
         //get root position
         vector root1 = p1->root_pos;
@@ -135,20 +183,21 @@ void Transition::blend(){
             vector bone1_rotation = p1->bone_rotation[j];
             vector bone2_rotation = p2->bone_rotation[j];
             
-            
             ///////////use quarternion/////////////////////////
             //convert to quarternion q1, q2
-            //vector q1 = Euler2Quarternion(bone1_rotation);
-            //vector q2 = Euler2Quarternion(bone2_rotation);
+//            vector q1 = Euler2Quarternion(bone1_rotation);
+//            vector q2 = Euler2Quarternion(bone2_rotation);
             
+//            vector test = Euler2Quarternion(bone1_rotation);
+//            test = Quarternion2Euler(test);
             //interpolate q1, q2 => q
             //vector q = (q2-q1)*(1.0*i/BLENDING_FRAME_NUM) + q1; //linear interpolation
             //vector q = q1*alpha + q2*(1.0-alpha);
             
-            //vector q = Slerp(q1, q2, alpha);
+//            vector q = Slerp(q1, q2, alpha);
 
             //convert q =>euler
-            //vector interpolate_rotation = Quarternion2Euler(q);
+//            vector interpolate_rotation = Quarternion2Euler(q);
             ///////////use quarternion/////////////////////////
             
             

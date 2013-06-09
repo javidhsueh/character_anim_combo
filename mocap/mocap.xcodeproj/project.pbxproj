@@ -41,6 +41,7 @@
 		69F9E8DF1762B324001338FA /* Transition.h in Sources */ = {isa = PBXBuildFile; fileRef = 69F9E8DC1761B51B001338FA /* Transition.h */; };
 		69F9E8E21762B343001338FA /* PointCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F9E8E01762B342001338FA /* PointCloud.cpp */; };
 		69F9E8E31762B343001338FA /* PointCloud.h in Sources */ = {isa = PBXBuildFile; fileRef = 69F9E8E11762B342001338FA /* PointCloud.h */; };
+		69F9E8E61762EB68001338FA /* Floyd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69F9E8E51762EB68001338FA /* Floyd.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +92,8 @@
 		69F9E8DD1761B52C001338FA /* Transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transition.cpp; path = mocapPlayer/Transition.cpp; sourceTree = "<group>"; };
 		69F9E8E01762B342001338FA /* PointCloud.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PointCloud.cpp; path = mocapPlayer/PointCloud.cpp; sourceTree = "<group>"; };
 		69F9E8E11762B342001338FA /* PointCloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PointCloud.h; path = mocapPlayer/PointCloud.h; sourceTree = "<group>"; };
+		69F9E8E41762EB52001338FA /* Floyd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Floyd.h; path = mocapPlayer/Floyd.h; sourceTree = "<group>"; };
+		69F9E8E51762EB68001338FA /* Floyd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Floyd.cpp; path = mocapPlayer/Floyd.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 		1CD32034175FF5550087F209 = {
 			isa = PBXGroup;
 			children = (
+				69F9E8E51762EB68001338FA /* Floyd.cpp */,
+				69F9E8E41762EB52001338FA /* Floyd.h */,
 				69F9E8E01762B342001338FA /* PointCloud.cpp */,
 				69F9E8E11762B342001338FA /* PointCloud.h */,
 				69F9E8DD1761B52C001338FA /* Transition.cpp */,
@@ -238,6 +243,7 @@
 				69F9E8E21762B343001338FA /* PointCloud.cpp in Sources */,
 				69F9E8E31762B343001338FA /* PointCloud.h in Sources */,
 				69F9E8DE1761B52C001338FA /* Transition.cpp in Sources */,
+				69F9E8E61762EB68001338FA /* Floyd.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

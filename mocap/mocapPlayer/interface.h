@@ -27,6 +27,21 @@ extern Fl_Button * plusOne_button;
 extern Fl_Button * minusOne_button;
 extern void play_callback(Fl_Button *, void *);
 
+
+//javid customized:
+extern Fl_Light_Button * action1_button;
+extern Fl_Light_Button * action2_button;
+extern Fl_Light_Button * action3_button;
+extern Fl_Light_Button * action4_button;
+extern Fl_Light_Button * action5_button;
+extern Fl_Light_Button * action6_button;
+extern Fl_Light_Button * action7_button;
+extern Fl_Light_Button * action8_button;
+extern void action_callback(Fl_Light_Button *, void *);
+
+//////////////////////
+
+
 extern Fl_Button * loadSkeleton_button;
 extern Fl_Button * loadMotion_button;
 extern void load_callback(Fl_Button *, void *);

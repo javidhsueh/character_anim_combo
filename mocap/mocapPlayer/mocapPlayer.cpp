@@ -34,7 +34,7 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "MotionLibrary.h"
 
 bool firstLoading = true;
-
+int currentState = 0 ;
 MotionLibrary* motion_lib;
 
 
@@ -324,6 +324,45 @@ void UpdateMaxFrameNumber(void)
     if (currentFrames > maxFrames)
       maxFrames = currentFrames;
   }
+}
+void setLightedButton(Fl_Light_Button *button){
+    action1_button->value(OFF);
+    action2_button->value(OFF);
+    action3_button->value(OFF);
+    action4_button->value(OFF);
+    action5_button->value(OFF);
+    action6_button->value(OFF);
+    action7_button->value(OFF);
+    action8_button->value(OFF);    
+    button->value(ON);
+}
+void action_callback(Fl_Light_Button *button, void *){
+    printf("in action callback");
+    if(button == action1_button){
+        
+    }
+    if(button == action2_button){
+        
+    }
+    if(button == action3_button){
+        
+    }
+    if(button == action4_button){
+        
+    }
+    if(button == action5_button){
+        
+    }
+    if(button == action6_button){
+        
+    }
+    if(button == action7_button){
+        
+    }
+    if(button == action8_button){
+        
+    }
+    setLightedButton(button);
 }
 
 void load_callback(Fl_Button *button, void *) 
@@ -931,7 +970,11 @@ int handle(int e) {
     char buffer[100];
     const char *keyname = buffer;
     int k = Fl::event_key();
-    switch(k){
+    if(currentState == k)
+        return (e == FL_SHORTCUT) ;
+    currentState = k;
+    
+    switch(currentState){
         case 'a':
         {
             Motion* motion = motion_lib->getMotion(0);
@@ -989,7 +1032,6 @@ int handle(int e) {
             currentFrameIndex=0;
             printf("%c",k);
         }
-            printf("%c",k);
             break;
         case '1':
             printf("%c",k);

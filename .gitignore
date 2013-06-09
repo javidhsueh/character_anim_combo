@@ -163,3 +163,20 @@ pip-log.txt
 .DS_Store
 
 fltk-1.3.0
+final_report/main.blg
+final_report/main.log
+final_report/main.pdf
+final_report/main.synctex.gz
+final_report/main.aux
+final_report/main.bbl
+mocap/mocap.xcodeproj/xcuserdata/javid.xcuserdatad/xcschemes
+mocap/mocap.xcodeproj/project.xcworkspace/xcuserdata
+mocap/mocap.xcodeproj/xcuserdata
+mocap/mocap.xcodeproj/project.xcworkspace
+mocap/mocap.xcodeproj/project.xcworkspace/xcuserdata/javid.xcuserdatad
+mocap/mocap.xcodeproj/xcuserdata/javid.xcuserdatad/xcdebugger
+mocap/mocap.xcodeproj/xcuserdata/javid.xcuserdatad
+mocap/mocap.xcodeproj/project.xcworkspace/xcuserdata/javid.xcuserdatad/UserInterfaceState.xcuserstate
+mocap/mocap.xcodeproj/xcuserdata/javid.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+mocap/mocap.xcodeproj/xcuserdata/javid.xcuserdatad/xcschemes/mocap.xcscheme
+mocap/mocap.xcodeproj/xcuserdata/javid.xcuserdatad/xcschemes/xcschememanagement.plist
