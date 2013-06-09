@@ -31,7 +31,7 @@ public:
     Skeleton *getSkeleton() { return skeleton; }
     
     //method
-    Motion* createTransition(int idx1, int f1, int idx2, int f2);
+    Motion* createTransition(int idx1, int f1, int idx2, int f2, double theta, double tx, double tz);
     
 private:
     int total_motion_num;

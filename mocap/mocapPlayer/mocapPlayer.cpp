@@ -960,26 +960,20 @@ void Player_Gl_Window::draw()
   {
     GraphicsInit();   
   }
-    if(firstLoading){
-        if (lastSkeleton <= lastMotion)  // cannot load new skeleton until motion is assigned to the current skeleton
-        {
-            char * filename = "./mocap_data/skeleton.asf";
-            if(filename != NULL)
-            {
-                // Read skeleton from asf file
-                pSkeleton = new Skeleton(filename, MOCAP_SCALE);
-                lastSkeleton++;
-                if(motion_lib) delete motion_lib;
-                motion_lib = new MotionLibrary("./mocap_data/list.txt",pSkeleton);
-                pSkeleton->setBasePosture();
-                displayer.LoadSkeleton(pSkeleton);
-                //glwindow->redraw();
-            }
-        }        
-        firstLoading =false;
-    }
+  if(firstLoading){
+      if (lastSkeleton <= lastMotion)  // cannot load new skeleton until motion is assigned to the current skeleton
+      {
+        // Read skeleton from asf file
+        pSkeleton = new Skeleton("./mocap_data/skeleton.asf", MOCAP_SCALE);
+        lastSkeleton++;
+        if(motion_lib) delete motion_lib;
+        motion_lib = new MotionLibrary("./mocap_data/list.txt",pSkeleton);
+        pSkeleton->setBasePosture();
+        displayer.LoadSkeleton(pSkeleton);
+      }
+      firstLoading =false;
+  }
     
-
   // Redisplay the screen then put the proper buffer on the screen.
   Redisplay();
 }
@@ -992,11 +986,36 @@ int handle(int e) {
     
     switch(currentState){
         case 'a':
-            loadMotion(0);
+        {
+            Motion* m = motion_lib->createTransition(1, 1779, 2, 55, 0, -0.496475, 1.036019 );
+            displayer.LoadMotion(m);
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));            
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex=0;
             setLightedButton(action1_button);
+        }
             break;
         case 'b':
-            loadMotion(1);
+        {
+            Motion* m = motion_lib->createTransition(1, 1784, 2, 189, 0, 0, 0 );
+            displayer.LoadMotion(m);
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex=0;
+            setLightedButton(action1_button);
+        }
             setLightedButton(action2_button);
             break;
         case 'c':

@@ -135,8 +135,8 @@ vector Euler2Quarternion(vector d)
 }
 
 
-Transition::Transition(Motion* m1, int f1, Motion* m2, int f2)
-:m1(m1), m2(m2), f1(f1), f2(f2)
+Transition::Transition(Motion* m1, int f1, Motion* m2, int f2, double theta, double tx, double tz)
+:m1(m1), m2(m2), f1(f1), f2(f2), theta(theta), tx(tx), tz(tz)
 {
     if(f1 + BLENDING_FRAME_NUM > m1->GetNumFrames() || f2-BLENDING_FRAME_NUM < 0)
         printf("Error: the frame index out of bound.");
@@ -166,16 +166,21 @@ void Transition::blend(){
         
         //get root position
         vector root1 = p1->root_pos;
-        vector root2 = p2->root_pos;
+        vector root2 = p2->root_pos;// + vector(tx, 0, tz); // * T
         
         //cancel x,z translation
-        root1[0] = root1[2] = root2[0] = root2[2] = 0;
+        //root1[0] = root1[2] = root2[0] = root2[2] = 0;
         
         //interpolate root translation
         //vector inerpolate_root =  (root2-root1)*(1.0*i/BLENDING_FRAME_NUM) + root1;
         vector inerpolate_root =  root1*alpha + root2*(1.0-alpha);
         this->interpolated_pos[i].root_pos = inerpolate_root;
         this->interpolated_pos[i].bone_translation[0] = inerpolate_root;
+        
+        //calculate root rotation
+//        vector bone1_rotation = p1->bone_rotation[0];
+//        vector bone2_rotation = p2->bone_rotation[0] ; //* theta
+//        this->interpolated_pos[i].bone_rotation[0] = bone1_rotation*alpha + bone2_rotation* (1.0-alpha);
         
         //get joint rotation
         for(int j = 0; j < num_bones; j++){
@@ -215,10 +220,26 @@ void Transition::blend(){
 }
 
 Motion* Transition::getBlendedMotion(){
-    
+    /*
     Motion* m = new Motion(BLENDING_FRAME_NUM, this->m1->GetSkeleton() );
     for(int i = 0 ; i< BLENDING_FRAME_NUM; i++){
         m->SetPosture(i, this->interpolated_pos[i]);
+    }*/
+    
+    //concatenate two motions and transition
+    Motion* m = new Motion(f1+BLENDING_FRAME_NUM+(m2->GetNumFrames()-f2), this->m1->GetSkeleton() );
+    int counter = 0;
+    for(int i = 0 ; i< f1; i++){
+        m->SetPosture(counter, *this->m1->GetPosture(i));
+        counter++;
+    }
+    for(int i = 0 ; i< BLENDING_FRAME_NUM; i++){
+        m->SetPosture(counter, this->interpolated_pos[i]);
+        counter++;
+    }
+    for(int i = f2 ; i< m2->GetNumFrames(); i++){
+        m->SetPosture(counter, *this->m2->GetPosture(i));
+        counter++;
     }
     return m;
     

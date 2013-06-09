@@ -67,7 +67,7 @@ Motion* MotionLibrary::getMotion(int index){
     }
 }
 
-Motion* MotionLibrary::createTransition(int idx1, int f1, int idx2, int f2){
+Motion* MotionLibrary::createTransition(int idx1, int f1, int idx2, int f2, double theta, double tx, double tz){
     
     if(idx1 > total_motion_num || idx2 > total_motion_num ){
         printf("Index out of bound.");
@@ -79,7 +79,7 @@ Motion* MotionLibrary::createTransition(int idx1, int f1, int idx2, int f2){
         printf("Frame index out of bound.");
         return 0;
     }
-    Transition* t =  new Transition(m1, f1, m2, f2);
+    Transition* t =  new Transition(m1, f1, m2, f2, theta, tx, tz);
     return t->getBlendedMotion();
     
 }
