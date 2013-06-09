@@ -37,6 +37,8 @@ bool firstLoading = true;
 int currentState = 0 ;
 MotionLibrary* motion_lib;
 
+bool displayPointCloud = false;
+
 
 enum SwitchStatus {OFF, ON};
 
@@ -996,7 +998,7 @@ int handle(int e) {
             break;
         case 'b':
         {
-            Motion* motion = motion_lib->getMotion(1);
+            Motion* motion = motion_lib->getMotion(4);
             displayer.LoadMotion(motion);
             lastMotion++;
             //Tell skeleton to perform the first pose ( first posture )
@@ -1041,6 +1043,12 @@ int handle(int e) {
             break;
         case '3':
             printf("%c",k);
+            break;
+        case 'o': case 'O':
+            displayPointCloud = false;
+            break;
+        case 'p': case 'P':
+            displayPointCloud = true;
             break;
     }
     return (e == FL_SHORTCUT); // eat all keystrokes

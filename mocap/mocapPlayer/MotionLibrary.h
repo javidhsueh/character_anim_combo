@@ -27,6 +27,8 @@ public:
     Motion* getMotion(char *name);
     
     Motion* getMotion(int index);
+
+    Skeleton *getSkeleton() { return skeleton; }
     
     //method
     Motion* createTransition(int idx1, int f1, int idx2, int f2);
