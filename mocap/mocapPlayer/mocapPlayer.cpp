@@ -988,7 +988,7 @@ int handle(int e) {
     switch(currentState){
         case 'a':
         {
-            Motion* m = motion_lib->createTransition(1, 1779, 2, 55, 0, -0.496475, 1.036019 );
+            Motion* m = motion_lib->createTransition(0, 1779, 1, 55, 0, -0.496475, 1.036019 );
             displayer.LoadMotion(m);
             lastMotion++;
             pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));            
@@ -1004,7 +1004,7 @@ int handle(int e) {
             break;
         case 'b':
         {
-            Motion* m = motion_lib->createTransition(1, 1784, 2, 189, 0, 0, 0 );
+            Motion* m = motion_lib->createTransition(0, 1784, 1, 189, 0, 0, 0 );
             displayer.LoadMotion(m);
             lastMotion++;
             pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
