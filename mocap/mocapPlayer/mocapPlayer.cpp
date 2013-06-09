@@ -97,6 +97,22 @@ PerformanceCounter performanceCounter;
 PerformanceCounter saveFileTimeCounter;
 double saveFileTimeCost = -1.0; // if value is negative, it means the data is invalid
 
+
+void loadMotion(int index){
+    Motion* motion = motion_lib->getMotion(index);
+    displayer.LoadMotion(motion);
+    lastMotion++;
+    pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
+    
+    int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+    if (currentFrames > maxFrames){
+        maxFrames = currentFrames;
+        frame_slider->maximum((double)maxFrames);
+    }
+    frame_slider->maximum((double)maxFrames);
+    currentFrameIndex=0;
+}
+
 void CreateScreenFilename(SaveScreenToFileMode saveToFileMode, int fileCount, char * filename)
 {
   switch (saveToFileMode)
@@ -341,28 +357,28 @@ void setLightedButton(Fl_Light_Button *button){
 void action_callback(Fl_Light_Button *button, void *){
     printf("in action callback");
     if(button == action1_button){
-        
+        loadMotion(0);
     }
     if(button == action2_button){
-        
+        loadMotion(1);
     }
     if(button == action3_button){
-        
+        loadMotion(2);
     }
     if(button == action4_button){
-        
+        loadMotion(3);
     }
     if(button == action5_button){
-        
+        loadMotion(4);
     }
     if(button == action6_button){
-        
+        loadMotion(5);
     }
     if(button == action7_button){
-        
+        loadMotion(6);
     }
     if(button == action8_button){
-        
+        loadMotion(7);
     }
     setLightedButton(button);
 }
@@ -969,8 +985,6 @@ void Player_Gl_Window::draw()
 }
 
 int handle(int e) {
-    char buffer[100];
-    const char *keyname = buffer;
     int k = Fl::event_key();
     if(currentState == k)
         return (e == FL_SHORTCUT) ;
@@ -978,70 +992,55 @@ int handle(int e) {
     
     switch(currentState){
         case 'a':
-        {
-            Motion* motion = motion_lib->getMotion(0);
-            displayer.LoadMotion(motion);
-            lastMotion++;
-            //Tell skeleton to perform the first pose ( first posture )
-            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
-            
-            // Set skeleton to perform the first pose ( first posture )
-            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
-            if (currentFrames > maxFrames){
-                maxFrames = currentFrames;
-                frame_slider->maximum((double)maxFrames);
-            }
-            frame_slider->maximum((double)maxFrames);
-            currentFrameIndex=0;
-            printf("%c",k);
-        }
+            loadMotion(0);
+            setLightedButton(action1_button);
             break;
         case 'b':
-        {
-            Motion* motion = motion_lib->getMotion(4);
-            displayer.LoadMotion(motion);
-            lastMotion++;
-            //Tell skeleton to perform the first pose ( first posture )
-            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
-            
-            // Set skeleton to perform the first pose ( first posture )
-            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
-            if (currentFrames > maxFrames){
-                maxFrames = currentFrames;
-                frame_slider->maximum((double)maxFrames);
-            }
-            frame_slider->maximum((double)maxFrames);
-            currentFrameIndex=0;
-            printf("%c",k);
-        }
+            loadMotion(1);
+            setLightedButton(action2_button);
             break;
         case 'c':
-        {
-            Motion* motion = motion_lib->createTransition(0, 100, 4, 250);
-//            motion->writeAMCfile("test", 1);
-            displayer.LoadMotion(motion);
-            lastMotion++;
-            //Tell skeleton to perform the first pose ( first posture )
-            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
-            
-            // Set skeleton to perform the first pose ( first posture )
-            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
-            if (currentFrames > maxFrames){
-                maxFrames = currentFrames;
-                frame_slider->maximum((double)maxFrames);
-            }
-            frame_slider->maximum((double)maxFrames);
-            currentFrameIndex=0;
-            printf("%c",k);
-        }
+            loadMotion(2);
+            setLightedButton(action3_button);
             break;
         case '1':
+            loadMotion(0);
+            setLightedButton(action1_button);
             printf("%c",k);
             break;
         case '2':
+            loadMotion(1);
+            setLightedButton(action2_button);
             printf("%c",k);
             break;
         case '3':
+            loadMotion(2);
+            setLightedButton(action3_button);
+            printf("%c",k);
+            break;
+        case '4':
+            loadMotion(3);
+            setLightedButton(action4_button);
+            printf("%c",k);
+            break;
+        case '5':
+            loadMotion(4);
+            setLightedButton(action5_button);
+            printf("%c",k);
+            break;
+        case '6':
+            loadMotion(5);
+            setLightedButton(action6_button);
+            printf("%c",k);
+            break;
+        case '7':
+            loadMotion(6);
+            setLightedButton(action7_button);
+            printf("%c",k);
+            break;
+        case '8':
+            loadMotion(7);
+            setLightedButton(action8_button);
             printf("%c",k);
             break;
         case 'o': case 'O':
