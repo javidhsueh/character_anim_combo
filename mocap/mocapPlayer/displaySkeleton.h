@@ -16,6 +16,8 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "skeleton.h"
 #include "motion.h"
 
+#include "PointCloud.h"
+
 class DisplaySkeleton 
 {
 
@@ -49,6 +51,11 @@ public:
   Motion * GetSkeletonMotion(int skeletonIndex);
 
   void Reset(void);
+
+  //*///// M.S.
+  void GenPointCloud(Skeleton *skl) { if (m_pPointCloud != NULL) delete m_pPointCloud; m_pPointCloud = new PointCloud(skl); }
+  PointCloud *GetPointCloud() { return m_pPointCloud; }
+  //////*/
   
 protected:
   RenderMode renderMode;
@@ -66,6 +73,10 @@ protected:
   Skeleton *m_pSkeleton[MAX_SKELS];		//pointer to current skeleton
   Motion *m_pMotion[MAX_SKELS];		//pointer to current motion	
   GLuint m_BoneList[MAX_SKELS];		//display list with bones
+
+  //*///// M.S.
+  PointCloud *m_pPointCloud;
+  //////*/
 
   static float jointColors[NUMBER_JOINT_COLORS][3];
 };

@@ -40,6 +40,10 @@ DisplaySkeleton::DisplaySkeleton(void)
     m_pSkeleton[skeletonIndex] = NULL;
     m_pMotion[skeletonIndex] = NULL;
   }
+
+  //*///// M.S.
+  m_pPointCloud = NULL;
+  //////*/
 }
 
 DisplaySkeleton::~DisplaySkeleton(void)
@@ -301,15 +305,25 @@ void DisplaySkeleton::Render(RenderMode renderMode_)
   //Translate the root to the correct position (it is (0,0,0) if no motion is loaded)
   //   glTranslatef(m_pSkeleton->m_RootPos[0], m_pSkeleton->m_RootPos[1], m_pSkeleton->m_RootPos[2]);
 
+  //*///// M.S.
+  if (displayPointCloud && m_pPointCloud != NULL)
+  {
+    m_pPointCloud->draw();
+  }
+  //////*/
+
   //draw the skeleton starting from the root
   for (int i = 0; i < numSkeletons; i++)
   {
     //*///// M.S.
     if (displayPointCloud)
     {
-      PointCloud *pc = new PointCloud(m_pSkeleton[i]);
-      pc->draw();
-      delete pc;
+      if (m_pPointCloud == NULL)
+      {
+        PointCloud *pc = new PointCloud(m_pSkeleton[i]);
+        pc->draw();
+        delete pc;
+      }
       continue;
     }
     //////*/

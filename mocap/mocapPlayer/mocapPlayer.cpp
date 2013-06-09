@@ -32,6 +32,7 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "performanceCounter.h"
 
 #include "MotionLibrary.h"
+#include "MotionGraph.h"
 
 bool firstLoading = true;
 int currentState = 0 ;
@@ -1023,18 +1024,63 @@ int handle(int e) {
             setLightedButton(action3_button);
             break;
         case '1':
-            loadMotion(0);
-            setLightedButton(action1_button);
+        {
+            // test
+            displayer.LoadMotion(motion_lib->getMotion(0));
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 100;
+        }
             printf("%c",k);
             break;
         case '2':
-            loadMotion(1);
-            setLightedButton(action2_button);
+        {
+            // test
+            displayer.LoadMotion(motion_lib->getMotion(1));
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(54)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 100;
+        }
             printf("%c",k);
             break;
         case '3':
-            loadMotion(2);
-            setLightedButton(action3_button);
+        {
+            // test
+            displayer.LoadMotion(motion_lib->getMotion(4));
+            lastMotion++;
+            //pSkeleton->setPosture(*(motion_lib->getMotion(0)->GetPosture(2765)));
+            //pSkeleton->setPosture(*(motion_lib->getMotion(2)->GetPosture(200)));
+            //pSkeleton->setPosture(*(motion_lib->getMotion(0)->GetPosture(100)));
+            pSkeleton->setPosture(*(motion_lib->getMotion(0)->GetPosture(1779)));
+            PointCloud pcA(pSkeleton);
+            pSkeleton->setPosture(*(motion_lib->getMotion(1)->GetPosture(55)));
+            PointCloud pcB(pSkeleton);
+            double matrix[16];
+            MotionGraph graph;
+            graph.distance(&pcA, &pcB, matrix);
+            displayer.GenPointCloud(pSkeleton);
+            displayer.GetPointCloud()->setTransformMatrix(matrix);
+            
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 100;
+        }
             printf("%c",k);
             break;
         case '4':

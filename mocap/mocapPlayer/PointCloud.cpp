@@ -7,6 +7,12 @@
 #include "PointCloud.h"
 #include "transform.h"
 
+void copyMatrix(double dst[], const double src[])
+{
+    for (int i = 0; i < 16; i++)
+        dst[i] = src[i];
+}
+
 // m is column major (OpenGL style)
 vector matMultVec3(const double m[], const vector &v)
 {
@@ -27,6 +33,8 @@ PointCloud::PointCloud(Skeleton *skl)
     numPoints = 0;
 
     glPushMatrix();
+    glLoadIdentity();
+
     double translation[3];
     skl->GetTranslation(translation);
     double rotationAngle[3];
@@ -38,6 +46,12 @@ PointCloud::PointCloud(Skeleton *skl)
     glRotatef(float(rotationAngle[2]), 0.0f, 0.0f, 1.0f);
     traverse(skl->getRoot());
 
+    glPopMatrix();
+
+    // default transform matrix
+    glPushMatrix();
+    glLoadIdentity();
+    glGetDoublev(GL_MODELVIEW_MATRIX, transformMatrix);
     glPopMatrix();
 }
 
@@ -57,11 +71,23 @@ PointCloud::PointCloud(PointCloud **pc, int k)
             points[numPoints++] = pc[i]->getPoints()[j];
         }
     }
+
+    // default transform matrix
+    glPushMatrix();
+    glLoadIdentity();
+    glGetDoublev(GL_MODELVIEW_MATRIX, transformMatrix);
+    glPopMatrix();
 }
 
 PointCloud::~PointCloud()
 {
     delete [] points;
+}
+
+void PointCloud::setTransformMatrix(double matrix[])
+{
+    for (int i = 0; i < 16; i++)
+        transformMatrix[i] = matrix[i];
 }
 
 void PointCloud::draw()
@@ -85,7 +111,8 @@ void PointCloud::draw()
     double radius = 0.01;
 
     glPushMatrix();
-    glLoadIdentity();
+
+    glMultMatrixd(transformMatrix);
 
     for (int i = 0; i < numPoints; i++)
     {
