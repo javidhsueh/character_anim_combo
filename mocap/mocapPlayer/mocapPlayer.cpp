@@ -32,6 +32,7 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "performanceCounter.h"
 
 #include "MotionLibrary.h"
+#include "MotionGraph.h"
 
 bool firstLoading = true;
 int currentState = 0 ;
@@ -987,7 +988,7 @@ int handle(int e) {
     switch(currentState){
         case 'a':
         {
-            Motion* m = motion_lib->createTransition(1, 1779, 2, 55, 0, -0.496475, 1.036019 );
+            Motion* m = motion_lib->createTransition(0, 1779, 1, 55, 0, -0.496475, 1.036019 );
             displayer.LoadMotion(m);
             lastMotion++;
             pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));            
@@ -1003,7 +1004,7 @@ int handle(int e) {
             break;
         case 'b':
         {
-            Motion* m = motion_lib->createTransition(1, 1784, 2, 189, 0, 0, 0 );
+            Motion* m = motion_lib->createTransition(0, 1784, 1, 189, 0, 0, 0 );
             displayer.LoadMotion(m);
             lastMotion++;
             pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
@@ -1023,18 +1024,63 @@ int handle(int e) {
             setLightedButton(action3_button);
             break;
         case '1':
-            loadMotion(0);
-            setLightedButton(action1_button);
+        {
+            // test
+            displayer.LoadMotion(motion_lib->getMotion(0));
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(0)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 100;
+        }
             printf("%c",k);
             break;
         case '2':
-            loadMotion(1);
-            setLightedButton(action2_button);
+        {
+            // test
+            displayer.LoadMotion(motion_lib->getMotion(1));
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(54)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 100;
+        }
             printf("%c",k);
             break;
         case '3':
-            loadMotion(2);
-            setLightedButton(action3_button);
+        {
+            // test
+            displayer.LoadMotion(motion_lib->getMotion(4));
+            lastMotion++;
+            //pSkeleton->setPosture(*(motion_lib->getMotion(0)->GetPosture(2765)));
+            //pSkeleton->setPosture(*(motion_lib->getMotion(2)->GetPosture(200)));
+            //pSkeleton->setPosture(*(motion_lib->getMotion(0)->GetPosture(100)));
+            pSkeleton->setPosture(*(motion_lib->getMotion(0)->GetPosture(1779)));
+            PointCloud pcA(pSkeleton);
+            pSkeleton->setPosture(*(motion_lib->getMotion(1)->GetPosture(55)));
+            PointCloud pcB(pSkeleton);
+            double matrix[16];
+            MotionGraph graph;
+            graph.distance(&pcA, &pcB, matrix);
+            displayer.GenPointCloud(pSkeleton);
+            displayer.GetPointCloud()->setTransformMatrix(matrix);
+            
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 100;
+        }
             printf("%c",k);
             break;
         case '4':

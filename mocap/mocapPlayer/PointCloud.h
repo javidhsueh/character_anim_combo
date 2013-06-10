@@ -3,6 +3,9 @@
 
 #include "skeleton.h"
 
+void copyMatrix(double dst[], const double src[]);
+vector matMultVec3(const double m[], const vector &v);
+
 class PointCloud
 {
 public:
@@ -11,6 +14,7 @@ public:
     ~PointCloud();
     int getNumPoints()  { return numPoints; }
     vector *getPoints() { return points; }
+    void setTransformMatrix(double matrix[]);
     void draw();
 
 private:
@@ -20,6 +24,7 @@ private:
 private:
     vector *points;             // points in global coordinates
     int numPoints;
+    double transformMatrix[16];
 };
 
 #endif // POINTCLOUD_H
