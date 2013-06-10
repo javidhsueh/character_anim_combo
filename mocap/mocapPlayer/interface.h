@@ -38,6 +38,7 @@ extern Fl_Light_Button * action6_button;
 extern Fl_Light_Button * action7_button;
 extern Fl_Light_Button * action8_button;
 extern Fl_Button * test_button;
+extern Fl_Button * reset_button;
 extern void action_callback(Fl_Light_Button *, void *);
 
 //////////////////////

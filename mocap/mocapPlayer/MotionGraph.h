@@ -25,6 +25,7 @@ struct Edge
     double theta;
     double x0, z0;
     int length;
+    int rest;       // 1 if this edge is connecting to the beginning of rest pose
 };
 
 class MotionGraph
@@ -56,7 +57,7 @@ public:
 
 private:
     void getTransformMatrix(double *matrix, double theta, double x0, double z0);
-    void addEdge(int id, int src, int dst, double theta, double x0, double z0, int length);
+    void addEdge(int id, int src, int dst, double theta, double x0, double z0, int length, int rest = 0);
     double distance(int ma, int mb, int i, int j, double *theta, double *x0, double *z0);
 
 private:
@@ -69,6 +70,7 @@ private:
 
     std::vector<Motion *> clips;
 
+    int restLabel;
     int targetLabel;
     int currentEdge;
     int currentFrame;

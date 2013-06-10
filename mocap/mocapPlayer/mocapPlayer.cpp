@@ -371,30 +371,41 @@ void action_callback(Fl_Light_Button *button, void *){
         motion_graph->setTargetLabel(1);
     }
     if(button == action3_button){
-        loadMotion(2);
+        //loadMotion(2);
+        motion_graph->setTargetLabel(2);
     }
     if(button == action4_button){
-        loadMotion(3);
+        //loadMotion(3);
+        motion_graph->setTargetLabel(3);
     }
     if(button == action5_button){
-        loadMotion(4);
+        //loadMotion(4);
+        motion_graph->setTargetLabel(4);
     }
     if(button == action6_button){
-        loadMotion(5);
+        //loadMotion(5);
+        motion_graph->setTargetLabel(5);
     }
     if(button == action7_button){
-        loadMotion(6);
+        //loadMotion(6);
+        motion_graph->setTargetLabel(6);
     }
     if(button == action8_button){
-        loadMotion(7);
+        //loadMotion(7);
+        motion_graph->setTargetLabel(7);
+    }
+    if(button == reset_button){
+        motion_graph->reset();
+        return;
     }
     if(button == test_button){
 
+        printf("test\n");
         //MotionGraph mg(motion_lib);
-        //mg.genAllCandidates(40);
+        motion_graph->genAllCandidates(40);
         //mg.genGraph();
-        motion_graph->reset();
-            
+        //motion_graph->reset();
+                    
         return;
     }
     setLightedButton(button);
@@ -1008,7 +1019,8 @@ void Player_Gl_Window::draw()
   }
 
   //*///// M.S.
-  pSkeleton->setPosture(*motion_graph->getPosture());
+  if (useMotionGraph)
+      pSkeleton->setPosture(*motion_graph->getPosture());
     
   // Redisplay the screen then put the proper buffer on the screen.
   Redisplay();
@@ -1147,7 +1159,8 @@ int handle(int e) {
             printf("%c",k);
             break;
         case '3':
-            loadMotion(2);
+            //loadMotion(2);
+            motion_graph->setTargetLabel(2);
             setLightedButton(action3_button);
         /*{
             // test
@@ -1192,27 +1205,32 @@ int handle(int e) {
             printf("%c",k);
             break;
         case '4':
-            loadMotion(3);
+            //loadMotion(3);
+            motion_graph->setTargetLabel(3);
             setLightedButton(action4_button);
             printf("%c",k);
             break;
         case '5':
-            loadMotion(4);
+            //loadMotion(4);
+            motion_graph->setTargetLabel(4);
             setLightedButton(action5_button);
             printf("%c",k);
             break;
         case '6':
-            loadMotion(5);
+            //loadMotion(5);
+            motion_graph->setTargetLabel(5);
             setLightedButton(action6_button);
             printf("%c",k);
             break;
         case '7':
-            loadMotion(6);
+            //loadMotion(6);
+            motion_graph->setTargetLabel(6);
             setLightedButton(action7_button);
             printf("%c",k);
             break;
         case '8':
-            loadMotion(7);
+            //loadMotion(7);
+            motion_graph->setTargetLabel(7);
             setLightedButton(action8_button);
             printf("%c",k);
             break;
