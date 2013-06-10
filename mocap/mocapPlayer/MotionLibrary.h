@@ -13,6 +13,7 @@
 #define PREFIX_MOTION_PATH "./mocap_data/"
 
 
+#include <string>
 #include "motion.h"
 #include "skeleton.h"
 
@@ -24,14 +25,19 @@ public:
 
     
     //getter
-    Motion* getMotion(char *name);
+    Motion* getMotion(const char *name);
     
     Motion* getMotion(int index);
 
     Skeleton *getSkeleton() { return skeleton; }
+
+    int getNumMotions() { return total_motion_num; }
+
+    const char *getName(int index) { return table[index].c_str(); }
     
     //method
     Motion* createTransition(int idx1, int f1, int idx2, int f2, double theta, double tx, double tz);
+
     
 private:
     int total_motion_num;
@@ -39,7 +45,7 @@ private:
     int loadFiles(char *table);
     
     //table
-    char* table[MAX_MOTION_NUM];
+    std::string table[MAX_MOTION_NUM];
  
     //container
     Motion* container[ MAX_MOTION_NUM ];

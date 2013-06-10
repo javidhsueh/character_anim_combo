@@ -25,6 +25,8 @@ Fl_Light_Button * action5_button = (Fl_Light_Button *)0;
 Fl_Light_Button * action6_button = (Fl_Light_Button *)0;
 Fl_Light_Button * action7_button = (Fl_Light_Button *)0;
 Fl_Light_Button * action8_button = (Fl_Light_Button *)0;
+Fl_Button * test_button = (Fl_Light_Button *)0;
+Fl_Button * reset_button = (Fl_Light_Button *)0;
 
 //button group - motion play
 Fl_Button * rewind_button = (Fl_Button *)0;
@@ -122,7 +124,7 @@ Fl_Window * make_window()
         Fl_Light_Button* o = action8_button = new Fl_Light_Button(605, 495, 80, 25, "RestPose");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
-
+      
       { 
         Fl_Light_Button* o = record_button = new Fl_Light_Button(380, 575, 40, 25, "R");
         o->callback((Fl_Callback *)record_callback, (void*)(0));
@@ -256,6 +258,16 @@ Fl_Window * make_window()
       Fl_Button * o = aboutPlayer_button = new Fl_Button(650, 420, 85, 25, "About");
       o->callback((Fl_Callback *)aboutPlayer_callback);
       o->align(FL_ALIGN_INSIDE);
+    }
+
+    {
+      Fl_Button* o = test_button = new Fl_Button(650, 235, 85, 25, "Test");
+      o->callback((Fl_Callback *)action_callback, (void*)(0));
+    }
+
+    {
+      Fl_Button* o = reset_button = new Fl_Button(650, 275, 85, 25, "Reset");
+      o->callback((Fl_Callback *)action_callback, (void*)(0));
     }
     o->end();
   }

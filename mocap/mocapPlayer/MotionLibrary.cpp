@@ -39,7 +39,7 @@ int MotionLibrary::loadFiles(char* name){
         
         //load motion file
         Motion* pMotion = new Motion( strdup(filename.c_str()) , MOCAP_SCALE, this->skeleton);
-        this->table[counter] = name;
+        this->table[counter] = std::string(str);
         this->container[counter] = pMotion;
         counter++;        
     }
@@ -47,7 +47,7 @@ int MotionLibrary::loadFiles(char* name){
     return 0;
 }
 
-Motion* MotionLibrary::getMotion(char* name){
+Motion* MotionLibrary::getMotion(const char* name){
     int i = 0;
     while(this->table[i] != name && i++ < total_motion_num );
     if( i < total_motion_num)

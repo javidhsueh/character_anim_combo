@@ -23,6 +23,43 @@ vector matMultVec3(const double m[], const vector &v)
     return vector(x / w, y / w, z / w);
 }
 
+inline double radToDegree(double theta)
+{
+    return theta * 180.0 / M_PI;
+}
+
+// rx := psi
+// ry := theta
+// rz := phi
+void matrixToEulerXYZ_(const double m[], double *rx, double *ry, double *rz)
+{
+    if (m[2] != 1.0 && m[2] != -1.0)
+    {
+        *ry = -asin(m[2]);
+        double cosTheta = cos(*ry);
+        *rx = atan2(m[6] / cosTheta, m[10] / cosTheta);
+        *rz = atan2(m[1] / cosTheta, m[0] / cosTheta);
+    }
+    else    // Gimbal lock ?
+    {
+        *rz = 0.0;
+        if (m[2] == -1.0)
+        {
+            *ry = M_PI / 2.0;
+            *rx = *rz + atan2(m[4], m[8]);
+        }
+        else
+        {
+            *ry = -M_PI / 2.0;
+            *rx = -(*rz) + atan2(-m[4], -m[8]);
+        }
+    }
+
+    *rx = radToDegree(*rx);
+    *ry = radToDegree(*ry);
+    *rz = radToDegree(*rz);
+}
+
 // generate a point cloud according to the skeleton
 // skeleton's posture must be set
 PointCloud::PointCloud(Skeleton *skl)

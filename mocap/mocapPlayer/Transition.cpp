@@ -11,7 +11,46 @@
 #include "vector.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "transform.h"
+#include <FL/gl.h>
 
+
+inline double radToDegree(double theta)
+{
+    return theta * 180.0 / M_PI;
+}
+
+// rx := psi
+// ry := theta
+// rz := phi
+void matrixToEulerXYZ(const double m[], double *rx, double *ry, double *rz)
+{
+    if (m[2] != 1.0 && m[2] != -1.0)
+    {
+        *ry = -asin(m[2]);
+        double cosTheta = cos(*ry);
+        *rx = atan2(m[6] / cosTheta, m[10] / cosTheta);
+        *rz = atan2(m[1] / cosTheta, m[0] / cosTheta);
+    }
+    else    // Gimbal lock ?
+    {
+        *rz = 0.0;
+        if (m[2] == -1.0)
+        {
+            *ry = M_PI / 2.0;
+            *rx = *rz + atan2(m[4], m[8]);
+        }
+        else
+        {
+            *ry = -M_PI / 2.0;
+            *rx = -(*rz) + atan2(-m[4], -m[8]);
+        }
+    }
+
+    *rx = radToDegree(*rx);
+    *ry = radToDegree(*ry);
+    *rz = radToDegree(*rz);
+}
 
 vector Slerp(vector start, vector end, double percent)
 {
@@ -138,7 +177,7 @@ vector Euler2Quarternion(vector d)
 Transition::Transition(Motion* m1, int f1, Motion* m2, int f2, double theta, double tx, double tz)
 :m1(m1), m2(m2), f1(f1), f2(f2), theta(theta), tx(tx), tz(tz)
 {
-    if(f1 + BLENDING_FRAME_NUM > m1->GetNumFrames() || f2-BLENDING_FRAME_NUM < 0)
+    if(f1 + BLENDING_FRAME_NUM > m1->GetNumFrames() || f2-BLENDING_FRAME_NUM+1 < 0)
         printf("Error: the frame index out of bound.");
     else{
         this->interpolated_pos = new Posture[BLENDING_FRAME_NUM];
@@ -162,11 +201,13 @@ void Transition::blend(){
         
         
         Posture* p1 = m1->GetPosture(f1+i);
-        Posture* p2 = m2->GetPosture(f2-BLENDING_FRAME_NUM+i);
+        Posture* p2 = m2->GetPosture(f2-BLENDING_FRAME_NUM+1+i);
         
         //get root position
         vector root1 = p1->root_pos;
-        vector root2 = p2->root_pos;// + vector(tx, 0, tz); // * T
+        vector root2 = p2->root_pos;
+        vector_rotationXYZ(root2.p, 0.0, radToDegree(theta), 0.0);
+        root2 = root2 + vector(tx, 0.0, tz);
         
         //cancel x,z translation
         //root1[0] = root1[2] = root2[0] = root2[2] = 0;
@@ -178,12 +219,26 @@ void Transition::blend(){
         this->interpolated_pos[i].bone_translation[0] = inerpolate_root;
         
         //calculate root rotation
-//        vector bone1_rotation = p1->bone_rotation[0];
-//        vector bone2_rotation = p2->bone_rotation[0] ; //* theta
-//        this->interpolated_pos[i].bone_rotation[0] = bone1_rotation*alpha + bone2_rotation* (1.0-alpha);
+        vector bone1_rotation = p1->bone_rotation[0];
+        vector bone2_rotation = p2->bone_rotation[0] ; //* theta
+        
+        glPushMatrix();
+        glLoadIdentity();
+        glRotated(radToDegree(theta), 0.0, 1.0, 0.0);
+        glRotated(bone2_rotation.z(), 0.0, 0.0, 1.0);
+        glRotated(bone2_rotation.y(), 0.0, 1.0, 0.0);
+        glRotated(bone2_rotation.x(), 1.0, 0.0, 0.0);
+        double matrix[16];
+        glGetDoublev(GL_MODELVIEW_MATRIX, matrix);
+        double rx, ry, rz;
+        matrixToEulerXYZ(matrix, &rx, &ry, &rz);
+        bone2_rotation = vector(rx, ry, rz);
+        glPopMatrix();
+
+        this->interpolated_pos[i].bone_rotation[0] = bone1_rotation*alpha + bone2_rotation* (1.0-alpha);
         
         //get joint rotation
-        for(int j = 0; j < num_bones; j++){
+        for(int j = 1; j < num_bones; j++){
             
             vector bone1_rotation = p1->bone_rotation[j];
             vector bone2_rotation = p2->bone_rotation[j];
@@ -220,12 +275,13 @@ void Transition::blend(){
 }
 
 Motion* Transition::getBlendedMotion(){
-    /*
+
     Motion* m = new Motion(BLENDING_FRAME_NUM, this->m1->GetSkeleton() );
     for(int i = 0 ; i< BLENDING_FRAME_NUM; i++){
         m->SetPosture(i, this->interpolated_pos[i]);
-    }*/
+    }
     
+    /*
     //concatenate two motions and transition
     Motion* m = new Motion(f1+BLENDING_FRAME_NUM+(m2->GetNumFrames()-f2), this->m1->GetSkeleton() );
     int counter = 0;
@@ -240,7 +296,7 @@ Motion* Transition::getBlendedMotion(){
     for(int i = f2 ; i< m2->GetNumFrames(); i++){
         m->SetPosture(counter, *this->m2->GetPosture(i));
         counter++;
-    }
+    }*/
     return m;
     
 }

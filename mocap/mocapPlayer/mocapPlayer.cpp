@@ -37,7 +37,9 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 bool firstLoading = true;
 int currentState = 0 ;
 MotionLibrary* motion_lib;
+MotionGraph* motion_graph;
 
+bool useMotionGraph = true;
 bool displayPointCloud = false;
 
 
@@ -299,6 +301,9 @@ void resetScene_callback(Fl_Button *button, void *)
   framesIncrementDoublePrecision = 1.0;
   currentFrameIndex = 0;
   currentFrameIndexDoublePrecision = 0.0;
+
+  //*///// M.S.
+  motion_graph->reset();
 }
 
 void saveScreenshot(int windowWidth, int windowHeight, char * filename);
@@ -356,30 +361,52 @@ void setLightedButton(Fl_Light_Button *button){
     button->value(ON);
 }
 void action_callback(Fl_Light_Button *button, void *){
-    printf("in action callback");
+    printf("in action callback\n");
     if(button == action1_button){
-        loadMotion(0);
+        //loadMotion(0);
+        motion_graph->setTargetLabel(0);
     }
     if(button == action2_button){
-        loadMotion(1);
+        //loadMotion(1);
+        motion_graph->setTargetLabel(1);
     }
     if(button == action3_button){
-        loadMotion(2);
+        //loadMotion(2);
+        motion_graph->setTargetLabel(2);
     }
     if(button == action4_button){
-        loadMotion(3);
+        //loadMotion(3);
+        motion_graph->setTargetLabel(3);
     }
     if(button == action5_button){
-        loadMotion(4);
+        //loadMotion(4);
+        motion_graph->setTargetLabel(4);
     }
     if(button == action6_button){
-        loadMotion(5);
+        //loadMotion(5);
+        motion_graph->setTargetLabel(5);
     }
     if(button == action7_button){
-        loadMotion(6);
+        //loadMotion(6);
+        motion_graph->setTargetLabel(6);
     }
     if(button == action8_button){
-        loadMotion(7);
+        //loadMotion(7);
+        motion_graph->setTargetLabel(7);
+    }
+    if(button == reset_button){
+        motion_graph->reset();
+        return;
+    }
+    if(button == test_button){
+
+        printf("test\n");
+        //MotionGraph mg(motion_lib);
+        motion_graph->genAllCandidates(40);
+        //mg.genGraph();
+        //motion_graph->reset();
+                    
+        return;
     }
     setLightedButton(button);
 }
@@ -586,6 +613,13 @@ void idle(void*)
       currentFrameIndexDoublePrecision += framesIncrementDoublePrecision;
     }
 
+    //*///// M.S.
+    if (useMotionGraph)
+    {
+      motion_graph->advance();
+    }
+    else
+    {
     currentFrameIndex = (int)currentFrameIndexDoublePrecision;
 
     if(currentFrameIndex >= maxFrames)
@@ -610,8 +644,9 @@ void idle(void*)
     }
 
     SetSkeletonsToSpecifiedFrame(currentFrameIndex);
-
+    
     frame_slider->value((double) currentFrameIndex + 1);
+    }
   }  // if(playButton == ON)
 
   if (minusOneButton == ON)
@@ -643,6 +678,7 @@ void idle(void*)
       frame_slider->value((double) currentFrameIndex + 1);
 
       SetSkeletonsToSpecifiedFrame(currentFrameIndex);
+
       if (saveScreenToFile == SAVE_CONTINUOUS)
       {
         CreateScreenFilename(SAVE_CONTINUOUS, saveScreenToFileContinuousCount, saveScreenToFileContinuousFilename);
@@ -671,6 +707,10 @@ void fslider_callback(Fl_Value_Slider *slider, long val)
   playButton = OFF; 
   repeatButton = OFF;
   SetSkeletonsToSpecifiedFrame(currentFrameIndex);
+
+  //*///// M.S.
+  //motion_graph->advance();
+
   Fl::flush();
 }
 
@@ -971,9 +1011,16 @@ void Player_Gl_Window::draw()
         motion_lib = new MotionLibrary("./mocap_data/list.txt",pSkeleton);
         pSkeleton->setBasePosture();
         displayer.LoadSkeleton(pSkeleton);
+
+        motion_graph = new MotionGraph(motion_lib);
+        motion_graph->genGraph();
       }
       firstLoading =false;
   }
+
+  //*///// M.S.
+  if (useMotionGraph)
+      pSkeleton->setPosture(*motion_graph->getPosture());
     
   // Redisplay the screen then put the proper buffer on the screen.
   Redisplay();
@@ -981,6 +1028,15 @@ void Player_Gl_Window::draw()
 
 int handle(int e) {
     int k = Fl::event_key();
+
+    ////
+    if (k == 'z')
+    {
+        motion_graph->advance();
+        pSkeleton->setPosture(*motion_graph->getPosture());
+        printf(".");
+    }
+
     if(currentState == k)
         return (e == FL_SHORTCUT) ;
     currentState = k;
@@ -1023,8 +1079,52 @@ int handle(int e) {
             loadMotion(2);
             setLightedButton(action3_button);
             break;
+        case 'q':
+            {
+            displayer.LoadMotion(motion_lib->getMotion(1));
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(90)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 90;
+            }
+            break;
+        case 'w':
+            {
+            displayer.LoadMotion(motion_lib->getMotion(1));
+            lastMotion++;
+            pSkeleton->setPosture(*(displayer.GetSkeletonMotion(0)->GetPosture(39)));
+            int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
+            if (currentFrames > maxFrames){
+                maxFrames = currentFrames;
+                frame_slider->maximum((double)maxFrames);
+            }
+            frame_slider->maximum((double)maxFrames);
+            currentFrameIndex = 39;
+
+            pSkeleton->setPosture(*(motion_lib->getMotion(1)->GetPosture(90)));
+            PointCloud pcA(pSkeleton);
+            pSkeleton->setPosture(*(motion_lib->getMotion(1)->GetPosture(39)));
+            PointCloud pcB(pSkeleton);
+            double matrix[16];
+            motion_graph->distance(&pcA, &pcB, matrix);
+            displayer.GenPointCloud(pSkeleton);
+            displayer.GetPointCloud()->setTransformMatrix(matrix);
+
+            double theta, x0, z0;
+            motion_graph->distance(&pcA, &pcB, &theta, &x0, &z0);
+            printf("%lf %lf %lf\n", theta, x0, z0);
+            }
+            break;
         case '1':
-        {
+            //loadMotion(0);
+            motion_graph->setTargetLabel(0);
+            setLightedButton(action1_button);
+        /*{
             // test
             displayer.LoadMotion(motion_lib->getMotion(0));
             lastMotion++;
@@ -1036,11 +1136,14 @@ int handle(int e) {
             }
             frame_slider->maximum((double)maxFrames);
             currentFrameIndex = 100;
-        }
+        }*/
             printf("%c",k);
             break;
         case '2':
-        {
+            //loadMotion(1);
+            motion_graph->setTargetLabel(1);
+            setLightedButton(action2_button);
+        /*{
             // test
             displayer.LoadMotion(motion_lib->getMotion(1));
             lastMotion++;
@@ -1052,11 +1155,14 @@ int handle(int e) {
             }
             frame_slider->maximum((double)maxFrames);
             currentFrameIndex = 100;
-        }
+        }*/
             printf("%c",k);
             break;
         case '3':
-        {
+            //loadMotion(2);
+            motion_graph->setTargetLabel(2);
+            setLightedButton(action3_button);
+        /*{
             // test
             displayer.LoadMotion(motion_lib->getMotion(4));
             lastMotion++;
@@ -1072,6 +1178,21 @@ int handle(int e) {
             graph.distance(&pcA, &pcB, matrix);
             displayer.GenPointCloud(pSkeleton);
             displayer.GetPointCloud()->setTransformMatrix(matrix);
+
+            // test
+            double rx = pSkeleton->getRoot()->rx;
+            double ry = pSkeleton->getRoot()->ry;
+            double rz = pSkeleton->getRoot()->rz;
+            glPushMatrix();
+            glLoadIdentity();
+            glRotated(rz, 0.0, 0.0, 1.0);
+            glRotated(ry, 0.0, 1.0, 0.0);
+            glRotated(rx, 1.0, 0.0, 0.0);
+            glGetDoublev(GL_MODELVIEW_MATRIX, matrix);
+            glPopMatrix();
+            double rxx, ryy, rzz;
+            matrixToEulerXYZ_(matrix, &rxx, &ryy, &rzz);
+            printf("%lf, %lf, %lf   %lf, %lf, %lf\n", rx, ry, rz, rxx, ryy, rzz);
             
             int currentFrames = displayer.GetSkeletonMotion(0)->GetNumFrames();
             if (currentFrames > maxFrames){
@@ -1080,31 +1201,36 @@ int handle(int e) {
             }
             frame_slider->maximum((double)maxFrames);
             currentFrameIndex = 100;
-        }
+        }*/
             printf("%c",k);
             break;
         case '4':
-            loadMotion(3);
+            //loadMotion(3);
+            motion_graph->setTargetLabel(3);
             setLightedButton(action4_button);
             printf("%c",k);
             break;
         case '5':
-            loadMotion(4);
+            //loadMotion(4);
+            motion_graph->setTargetLabel(4);
             setLightedButton(action5_button);
             printf("%c",k);
             break;
         case '6':
-            loadMotion(5);
+            //loadMotion(5);
+            motion_graph->setTargetLabel(5);
             setLightedButton(action6_button);
             printf("%c",k);
             break;
         case '7':
-            loadMotion(6);
+            //loadMotion(6);
+            motion_graph->setTargetLabel(6);
             setLightedButton(action7_button);
             printf("%c",k);
             break;
         case '8':
-            loadMotion(7);
+            //loadMotion(7);
+            motion_graph->setTargetLabel(7);
             setLightedButton(action8_button);
             printf("%c",k);
             break;
