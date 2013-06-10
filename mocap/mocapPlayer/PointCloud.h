@@ -5,6 +5,7 @@
 
 void copyMatrix(double dst[], const double src[]);
 vector matMultVec3(const double m[], const vector &v);
+void matrixToEulerXYZ_(const double m[], double *rx, double *ry, double *rz);
 
 class PointCloud
 {

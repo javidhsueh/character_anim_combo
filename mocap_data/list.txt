@@ -1,9 +1,2 @@
-punch_strike
 walk
-boxing1
-stretch
-jump
-jump_hop
-kick_ball
 run
-swordplay

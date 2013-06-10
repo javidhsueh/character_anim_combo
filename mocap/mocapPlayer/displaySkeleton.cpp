@@ -18,9 +18,9 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 #include "displaySkeleton.h"
 #include "transform.h"
 
-////////
-#include "PointCloud.h"
+#include "MotionGraph.h"
 
+extern MotionGraph *motion_graph;
 extern bool displayPointCloud;
 
 
@@ -333,6 +333,11 @@ void DisplaySkeleton::Render(RenderMode renderMode_)
     m_pSkeleton[i]->GetTranslation(translation);
     double rotationAngle[3];
     m_pSkeleton[i]->GetRotationAngle(rotationAngle);
+
+    //*///// M.S.
+    double matrix[16];
+    motion_graph->getTransformMatrix(matrix);
+    glMultMatrixd(matrix);
 
     glTranslatef(float(MOCAP_SCALE * translation[0]), float(MOCAP_SCALE * translation[1]), float(MOCAP_SCALE * translation[2]));
     glRotatef(float(rotationAngle[0]), 1.0f, 0.0f, 0.0f);
