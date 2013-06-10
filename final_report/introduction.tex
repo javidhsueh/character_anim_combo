@@ -1,45 +1,44 @@
 %introduce why it's important
 Fighting games are very popular since the smooth animation and the energetic of martial arts. 
-exaggerate  fancy skill
-
+In most video games, the fighting skills are used to be fancy and exaggerated. 
+Players expect the motion of the virtual character should be realistic and 
+smoothly. Many game companies use the motion capture techniques to produce varios 
+high quality motion data for the realistic purposes. 
 
 %fighting game by motion capture
-however, motion capture is limited in 
-
+However, motion capture is limited in the precaptured motion clips and the 
+variety of motion meets the user specification. 
 If we can't get the appropriate or desired motion, the virtual character may not 
-to perform some actions smoothly.
-
-
-%motion graph successfully
-generate transition between two motion clips. 
-
+to perform certain actions smoothly.
 Actually, creating transition between two motion is a hard animation problem.
 % why it's so difficult
-mutsukashi..
+A basic idea is to find the similar pose between two clips, and using 
+interpolation techniques to blend the motion. However, even the poses between 
+motions are similar, the momentum of each bone is still different. 
+It would be a challenging problem to blend the motions at certain frames.
 
-
-
+% our goal 
+Our goal is to generate the realistic motion by motion capture library while 
+also giving a user the ability to control the virtual character to act smooth 
+fighting actions.
 %what we've done
-In this paper, we implemented the motion graph from [ref].
+In this work, we implemented the motion graph from [ref].
 The idea of motion graph is to find the transition points between two clips, 
 whose poses are similar. 
 With the detecting algorithm, we can automatically find the transition points 
 and reliably generate the transition with certain blending techniques.
 
-
 %the experiment result
-The result shows in Section4. We collect XX motion capture files from CMU motion 
-capture library website. The 
-
+The result shows in Section4. We collect 8 motion capture files from CMU motion 
+capture website[]. The result video can be seen at []. In the result, we 
+generate xxx transition nodes, xxx transitions, xxx segments. 
+The result shows the motions are highly interactive and smooth with realistic.
 
 % the following paper organization:
-the following of this paper is organised  as follows.
+The following of this paper is organised  as follows.
 In Section 2 we describe related work. In Section 3 we describe how a motion
 graph is constructed from a database of motion capture. 
-
 InSection 4 we set forth a general framework for extracting motion from the
 motion graph that meets user specifications. 
-
-Section 5 discusses the specific problem of generating movements along a path and how
-it is handled in our framework. We conclude in Section 6 with a
-discussion of the scalability of our app
+Section 5 presented the motion synthesized result. We conclude in Section 6 with a
+discussion of the contribution of the work.

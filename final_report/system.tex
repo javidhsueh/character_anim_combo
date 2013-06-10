@@ -1,6 +1,11 @@
-In this section, we explain the detail of each step in our system. The system 
+In this section, we explain the detail of each step in our system. The algorithm 
 flow is depicted in Fig.[xx]. 
 %Fig : system flow
+
+% Construct point cloud at frame i, j.
+% Evaluate error function, 
+% Find local minimum error
+% Generate transition motion 
 
 The remainder of this section is divided into four pars. 
 First, we explain the algorithm of detecting candidate transitions between 
@@ -11,13 +16,44 @@ looks natural.
 
 
 \subsection{Detecting Candidate Transitions}
-In this section, we discuss about how to detect the transition points between two 
+In this section, we discuss about how to locate the transition points between two 
 motion clips. 
 
-Generate point cloud, see Fig.[]. 
+In [], they pointed out three issues when measuring the difference between poses at each pair of 
+frames: 
+\begin{enumerate}
+\item Simple vectors norms fail to account for the meaning of the joint angle 
+representation.
+\item Comparing two motions requires identifying compatible coordinate systems 
+instead of rigid 2D coordinate transformation.
+\item Smooth blending requires higher-order derivatives of joint transitions.
+\end{enumerate}
 
-from i to j frame, window size k frames.
 
+The similarity metric is defined by calculating the distance $D(A_i,B_j)$ 
+between frames $A_i$ and $B_j$. In order to increase vector norms, we measure a 
+point as a group of points, called point cloud (see Fig.[]), which is  based on a downsampling of the mesh of the character. 
+Furthermore, we consider a window of frames length $k$, for $A_i ~ A_i+k$ and $B_j-k ~ 
+B_j$. The size of the windows is defined as a third of a second in length, as in 
+[]. 
+
+In order to find the closest frames $A_i$ and $B_j$, we may calculate the 
+minimum discrepancy of two point cloud $p_i$ and $p'_i]$. A rigid transformation $T_{\Theta,x_0,z_0}$
+is applied to the second point cloud for transforming the position and rotation 
+from second point cloud to the first point cloud.
+
+%transform function equation:
+$\min_{\Theta,z_0,z_0} \sum w_i\left \| p_i-T_{\Theta,x_0,z_0}p'_i \right \|^2$
+
+%eq1: theta
+$\Theta = arctan\frac{\sum_i (x_i z'_i - x'_i z_i)-\frac{1}{\sum w_i}(\overline{x}\overline{z'}-\overline{x'}\overline{z})}
+{\sum_i (x_i z'_i + x'_i z_i)-\frac{1}{\sum w_i}(\overline{x}\overline{z'} +\overline{x'}\overline{z})}$
+
+%eq2: x_0
+$x_0 = \frac{1}{\sum_i w_i} (\overline{x}-\overline{x'}cos\Theta-\overline{z'}sin\Theta)$
+
+%eq3: z_0
+$z_0 = \frac{1}{\sum_i w_i} (\overline{z}+\overline{x'}sin\Theta-\overline{z'}cos\Theta)$
 
 \subsection{Motion Transition}
 After detecting the transition points between two motion clips, we need to 
@@ -26,6 +62,11 @@ Use Floyd-Warshall algorithm to construct the all-pairs shortest paths.
 
 
 %the data structure of a node:
+% id, motion_frim_idx, label, edge_list, label_path_list.
+
+%the data structure of a edge:
+%id, node_src, node_dst, theta, x_0, z_0
+
 
 \subsection{Consistent Momentum between Motions}
 Due to we can't get the motion capture files they are consistent in the 

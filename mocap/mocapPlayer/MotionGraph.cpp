@@ -2,10 +2,12 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 #include <FL/gl.h>
 
 #include "MotionGraph.h"
+
 
 struct WindowPair
 {
@@ -47,7 +49,7 @@ double MotionGraph::distance(PointCloud *pcA, PointCloud *pcB, double *matrix)
         printf("Error: in MotionGraph::getTransformMatrix().\n");
         exit(-1);
     }
-    double numPoints = min(pcA->getNumPoints(), pcB->getNumPoints());       // the two numbers should be the same
+    double numPoints = pcA->getNumPoints();       // the two numbers should be the same
     vector *pa = pcA->getPoints();
     vector *pb = pcB->getPoints();
 
@@ -133,7 +135,7 @@ double MotionGraph::distance(PointCloud *pcA, PointCloud *pcB, double *oTheta, d
         printf("Error: in MotionGraph::getTransformMatrix().\n");
         exit(-1);
     }
-    double numPoints = min(pcA->getNumPoints(), pcB->getNumPoints());       // the two numbers should be the same
+    double numPoints = pcA->getNumPoints();
     vector *pa = pcA->getPoints();
     vector *pb = pcB->getPoints();
 
