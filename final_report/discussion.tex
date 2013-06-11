@@ -1,0 +1,21 @@
+% Summary of the paper we implemented
+In this work, we implemented the Motion graph from~\cite{kovar2002}. By constructing a 
+directed graph to locate the transition between a group of motion clips, we can 
+synthesize an infinite length of motion by traversing on the graph. 
+
+
+However, the result comes with several Issues:
+\begin{enumerate}
+\item state transition: in current system, we only consider pose transition instead of state transition. 
+That is, if we blending pose from "run" to "jump", it's possible to select a transition which ending pose is 
+float on the ground and then landing. Therefore, the further more improvement could consider the state 
+transition, ex: running to walking and then stop. 
+
+\item Skeleton definition: with limited motion capture files, we just ignore the skeleton 
+definition of each motion. Therefore, sometimes the character may looks like 
+"float" on the ground. It's possible to fix skeleton definition by certain post processing 
+techniques. However, it's beyond our original goal.
+
+\item Memory usage: without appropriate threshold to limit the number of transition node, we may 
+generate to many unnecessary transition between motions. This may cause out of memory during the runtime. 
+\end{enumerate}

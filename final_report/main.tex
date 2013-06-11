@@ -9,6 +9,12 @@
 \usepackage{graphicx}
 \usepackage[english]{babel}
 \usepackage{cite}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{url}
+
 
 \newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
 \newcommand*{\TitleFont}{%
@@ -33,12 +39,21 @@
 
 \begin{document}  % required; the document starts here
 
-\title{\TitleFont Motion Graph on Fighting combo motion}
+\title{\TitleFont Motion Graph: Fighting Combo Motions}
 \author{Chien-Hsin Hsueh   Min Shih\\chhhsueh,minshih@ucdavis.edu\\UC Davis }
 \maketitle
 
-
 \section{Abstract}
+\begin{figure*}[t]
+\includegraphics[width=40mm]{Images/ss1}
+\includegraphics[width=40mm]{Images/ss2}
+\includegraphics[width=40mm]{Images/ss3}
+\includegraphics[width=40mm]{Images/ss4}
+\caption{\textit{Locating the closest poses between different motion clips and blending between them. 
+This four figure shows the blending from punching to jumping.}}
+\label{blending_process}
+\end{figure*}
+
 \input{abstract}
 
 \section{Introduction}
@@ -54,7 +69,18 @@
 \section{Experiment}
 \input{experiment}
 
-\section{Conclusion}
-\input{conclusion}
+\section{Discussion}
+\input{discussion}
+
+
+\begin{thebibliography}{i}
+\bibitem[1]{kovar2002} {Kovar, Lucas, Michael Gleicher, and Frédéric Pighin. "Motion graphs." ACM SIGGRAPH 2008 classes. ACM, 2008.}
+\bibitem[2]{pullen2000} {Pullen, Katherine, and Christoph Bregler. "Animating by multi-level sampling." Computer Animation 2000. Proceedings. IEEE, 2000.} 
+\bibitem[3]{min} {Min, Jianyuan, and Jinxiang Chai. "Motion graphs++: a compact generative model for semantic motion analysis and synthesis." ACM Transactions on Graphics (TOG) 31.6 (2012): 153.}
+\bibitem[4]{cmu} {\emCMU Graphics Lab Motion Capture Database}, CMU Graphics Lab, \url{http://mocap.cs.cmu.edu/}
+\bibitem[5]{datadriven} {Mizuguchi, Mark, John Buchanan, and Tom Calvert. "Data driven motion transitions for interactive games." Eurographics 2001 Short Presentations. Vol. 2. No. 3. 2001.}
+\bibitem[6]{video} {Demo video}, \url {htt[://www.youtube.com/watch?v=-YqHYgOS_9Y}
+\end{thebibliography}
+
 
 \end{document}
