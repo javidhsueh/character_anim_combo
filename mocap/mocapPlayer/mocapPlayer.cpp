@@ -437,7 +437,7 @@ void setLightedButton(Fl_Light_Button *button){
     button->value(ON);
 }
 void action_callback(Fl_Light_Button *button, void *){
-    printf("in action callback\n");
+    //printf("in action callback\n");
     if(button == action1_button){
         //loadMotion(0);
         motion_graph->setTargetLabel(0);

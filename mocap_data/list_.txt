@@ -1,8 +1,0 @@
-rest
-walk
-run
-punch_strike
-boxing1
-jump
-swordplay
-martialArts

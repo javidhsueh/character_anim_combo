@@ -516,7 +516,7 @@ void MotionGraph::genGraph()
     }
 
     // load candidates
-    printf("Loading transition candidates...\n");
+    printf("Loading transition candidates... ");
     std::ifstream ifs;
     ifs.open("./mocap_data/candidates.txt", std::ios::in);
     char buf[256];
@@ -531,14 +531,14 @@ void MotionGraph::genGraph()
         ifs >> buf;                         // #motionIndex
         int motionIdxA, motionIdxB;
         ifs >> motionIdxA >> motionIdxB;
-        printf("motionIndex: %d, %d\n", motionIdxA, motionIdxB);
+        //printf("motionIndex: %d, %d\n", motionIdxA, motionIdxB);
         ifs >> buf;                         // #motionName
         ifs >> buf;                         // motionNameA
         ifs >> buf;                         // motionNameB
         ifs >> buf;                         // #numFrames
         int numFramesA, numFramesB;
         ifs >> numFramesA >> numFramesB;
-        printf("numFrames: %d, %d\n", numFramesA, numFramesB);
+        //printf("numFrames: %d, %d\n", numFramesA, numFramesB);
         ifs >> buf;                         // #minListSize
         int minListSize;
         ifs >> minListSize;
@@ -579,6 +579,8 @@ void MotionGraph::genGraph()
     }
     ifs.close();
 
+    printf("done.\n");
+
     /*for (int aa = 0; aa < numMotions; aa++)
         for (int bb = 0; bb < numMotions; bb++)
         {
@@ -590,6 +592,8 @@ void MotionGraph::genGraph()
             }
         }
     */
+
+    printf("Construcing graph...\n");
 
     int numNodes = 0;
     int numEdges = 0;
@@ -681,6 +685,8 @@ void MotionGraph::genGraph()
     printf("Construcing graph... done.\n");
 
     ////////////////////////////////////////////////////////////////////////////
+
+    printf("Constructing shortest path table... ");
 
     int numLabels = numMotions;         // can be different
 
@@ -776,11 +782,13 @@ void MotionGraph::genGraph()
         }
     }
 
-    printf("Constructing shortest path table... done.\n");
+    printf("done.\n");
 
-    printf("Total %d edges.\n", edges.size());
+    printf("Total edges: %d\n", edges.size());
 
     ////////////////////////////////////////////////////////////////////////////
+
+    printf("Constructing clips... ");
 
     // construct edge clips
     for (size_t eid = 0; eid < edges.size(); eid++)
@@ -827,11 +835,11 @@ void MotionGraph::genGraph()
         clips.push_back(clip);
     }
 
-    printf("Constructing clips... done.\n");
+    printf("done.\n");
         
     reset();
 
-    printf("genGraph(): done.\n");
+    printf("Generating motion graph: done.\n");
 }
 
 void MotionGraph::reset()
@@ -865,8 +873,8 @@ void MotionGraph::advance()
         currentEdge = nodes[nodeId].next[targetLabel];
         currentFrame = 0;
 
-        printf("edge(%d): %d(%d) --> %d(%d)\n", currentEdge, nodes[edges[currentEdge].src].motionIdx, nodes[edges[currentEdge].src].frameIdx,
-                                                             nodes[edges[currentEdge].dst].motionIdx, nodes[edges[currentEdge].dst].frameIdx);
+        //printf("edge(%d): %d(%d) --> %d(%d)\n", currentEdge, nodes[edges[currentEdge].src].motionIdx, nodes[edges[currentEdge].src].frameIdx,
+        //                                                     nodes[edges[currentEdge].dst].motionIdx, nodes[edges[currentEdge].dst].frameIdx);
     }
 }
 
