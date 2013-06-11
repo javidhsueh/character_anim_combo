@@ -50,7 +50,8 @@ public:
     void reset();
     void advance();
     void setTargetLabel(int label);
-    //int getCurrentLabel();
+    int getTargetLabel() const { return targetLabel; }
+    int getCurrentLabel();
     Motion *getMotion();
     Posture *getPosture();
     void getTransformMatrix(double matrix[]);

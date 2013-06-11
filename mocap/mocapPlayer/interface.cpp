@@ -64,7 +64,7 @@ Fl_Window * make_window()
     Fl_Window * o = main_window = new Fl_Window(741, 622, "ASF/AMC Motion Capture Player");
     w = o;
     { 
-      Fl_Group * o = new Fl_Group(10, 485, 615, 140);
+      Fl_Group * o = new Fl_Group(10, 485, 685, 140);
 //      { 
 //        Fl_Button * o = loadSkeleton_button = new Fl_Button(10, 495, 120, 40, "Load Skeleton");
 //        o->callback((Fl_Callback *)load_callback);
@@ -146,6 +146,7 @@ Fl_Window * make_window()
         o->labeltype(FL_SYMBOL_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback *)play_callback);
+        o->hide();
       }
       { 
         Fl_Button* o = play_button = new Fl_Button(500, 575, 35, 25, "@>");
@@ -158,6 +159,7 @@ Fl_Window * make_window()
         o->labeltype(FL_SYMBOL_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback *)play_callback, (void*)(0));
+        o->hide();
       }
       { 
         Fl_Button* o = plusOne_button = new Fl_Button(570, 575, 35, 25, "+1");
@@ -170,6 +172,7 @@ Fl_Window * make_window()
         o->labeltype(FL_SYMBOL_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback *)play_callback, (void*)(0));
+        o->hide();
       }
       o->end();
     }  // FL_group
@@ -189,6 +192,7 @@ Fl_Window * make_window()
       o->step(1);
       o->callback((Fl_Callback*)fslider_callback, (void*)(0));
       o->align(197);
+      o->hide();
     }
 
     { 
@@ -196,6 +200,7 @@ Fl_Window * make_window()
       o->minimum(0);
       o->value(1);
       o->callback((Fl_Callback*)playSpeed_callback);
+      o->hide();
     }
     
 //    { 
@@ -234,6 +239,7 @@ Fl_Window * make_window()
       o->step(1);
       o->value(-1);
       o->callback((Fl_Callback*)spotJoint_callback);
+      o->hide();
     }
 
     { 
@@ -258,11 +264,13 @@ Fl_Window * make_window()
       Fl_Button * o = aboutPlayer_button = new Fl_Button(650, 420, 85, 25, "About");
       o->callback((Fl_Callback *)aboutPlayer_callback);
       o->align(FL_ALIGN_INSIDE);
+      o->hide();
     }
 
     {
       Fl_Button* o = test_button = new Fl_Button(650, 235, 85, 25, "Gen Graph");
       o->callback((Fl_Callback *)action_callback, (void*)(0));
+      o->hide();
     }
 
     {
