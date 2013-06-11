@@ -303,6 +303,8 @@ void MotionGraph::genCandidates(std::ofstream &os, int motionIdxA, int motionIdx
         pcListB[i] = new PointCloud(skeleton);
     }
 
+    printf("Form distance matrix...\n");
+
     double *dist = new double[numFramesA * numFramesB]();   // distance of any pair of windows
 
     int iBegin = 0;
@@ -410,9 +412,12 @@ void MotionGraph::genAllCandidates(int k)
     ofs << "#numMotions" << std::endl;
     ofs << numMotions << std::endl;
 
-    for (int i = 0; i < numMotions; i++)
+    //for (int i = 0; i < numMotions; i++)
+    int i = 7;
     {
-        for (int j = 0; j < numMotions; j++)
+        //for (int j = 0; j < numMotions; j++)
+        for (int j = 6; j < numMotions; j++)
+        //int j = 3;
         {
             genCandidates(ofs, i, j, k);
         }
@@ -513,28 +518,36 @@ void MotionGraph::genGraph()
     }
 
     // load candidates
+    printf("Loading transition candidates... ");
     std::ifstream ifs;
     ifs.open("./mocap_data/candidates.txt", std::ios::in);
     char buf[256];
     ifs >> buf;                             // #numMotions
     int nmotions;
     ifs >> nmotions;
+    double threshold = 100.0;
+    int minCandidateCount = 50;
+
     for (int ma = 0; ma < nmotions; ma++) for (int mb = 0; mb < nmotions; mb++)
     {
         ifs >> buf;                         // #motionIndex
         int motionIdxA, motionIdxB;
         ifs >> motionIdxA >> motionIdxB;
+        //printf("motionIndex: %d, %d\n", motionIdxA, motionIdxB);
         ifs >> buf;                         // #motionName
         ifs >> buf;                         // motionNameA
         ifs >> buf;                         // motionNameB
         ifs >> buf;                         // #numFrames
         int numFramesA, numFramesB;
         ifs >> numFramesA >> numFramesB;
+        //printf("numFrames: %d, %d\n", numFramesA, numFramesB);
         ifs >> buf;                         // #minListSize
         int minListSize;
         ifs >> minListSize;
         ifs >> buf;                         // #i
         ifs.getline(buf, sizeof(buf));      // j distance theta x0 z0
+        
+        int count = 0;
         for (int ii = 0; ii < minListSize; ii++)
         {
             int i, j;
@@ -545,7 +558,13 @@ void MotionGraph::genGraph()
             if (j > (int)nodeId[mb].size() - k)     // later than last transition point
                 continue;
 
-            // todo: check threshold
+            // check threshold & conditions
+            if (dist > threshold &&
+                (count > minCandidateCount ||
+                 j > numFramesB / 2))
+                //count > minListSize / 20)
+                continue;
+            count++;
 
             WindowPair pair;
             pair.i = i;
@@ -562,6 +581,8 @@ void MotionGraph::genGraph()
     }
     ifs.close();
 
+    printf("done.\n");
+
     /*for (int aa = 0; aa < numMotions; aa++)
         for (int bb = 0; bb < numMotions; bb++)
         {
@@ -574,6 +595,8 @@ void MotionGraph::genGraph()
         }
     */
 
+    printf("Construcing graph...\n");
+
     int numNodes = 0;
     int numEdges = 0;
 
@@ -581,13 +604,14 @@ void MotionGraph::genGraph()
     for (int m = 0; m < numMotions; m++)
     {
         int lastNode = -1;
+        int count = 0;
         for (int f = 0; f < (int)nodeId[m].size(); f++)
             if (nodeId[m][f] >= 0)
             {
                 // form a new node
                 nodeId[m][f] = numNodes++;
 
-                printf("node(%d): %d, %d\n", nodeId[m][f], m, f);
+                //printf("node(%d): %d, %d\n", nodeId[m][f], m, f);
 
                 Node node;
                 node.id = nodeId[m][f];
@@ -595,6 +619,8 @@ void MotionGraph::genGraph()
                 node.frameIdx = f;
                 node.label = m;                 // use motion idx as label
                 nodes.push_back(node);
+                
+                count++;
 
                 if (lastNode != -1)             // not the first node of the motion
                 {
@@ -607,6 +633,8 @@ void MotionGraph::genGraph()
                 }
                 lastNode = f;
             }
+
+        printf("Motion(%d): total nodes: %d\n", m, count);
     }
         
     // construct edges crossing two motions
@@ -628,7 +656,7 @@ void MotionGraph::genGraph()
         }
     }
 
-    // construct edges from the end of motions to the rest post
+    // construct edges from the end of motions to the rest pose
     if ((int)nodeId[restPoseIdx].size() >= k)
     {
         for (int m = 0; m < numMotions; m++)
@@ -653,10 +681,14 @@ void MotionGraph::genGraph()
         int dstMotion = nodes[e.dst].motionIdx;
         int srcFrame = nodes[e.src].frameIdx;
         int dstFrame = nodes[e.dst].frameIdx;
-        printf("edge(%d): %d(%d) --> %d(%d)\n", eid, srcMotion, srcFrame, dstMotion, dstFrame);
+        //printf("edge(%d): %d(%d) --> %d(%d)\n", eid, srcMotion, srcFrame, dstMotion, dstFrame);
     }
 
+    printf("Construcing graph... done.\n");
+
     ////////////////////////////////////////////////////////////////////////////
+
+    printf("Constructing shortest path table... ");
 
     int numLabels = numMotions;         // can be different
 
@@ -712,12 +744,18 @@ void MotionGraph::genGraph()
                     {
                         //printf("%d(%d)\n", nodes[i].motionIdx, nodes[i].frameIdx);
                         nextEdge = nodes[i].link[0];
-                        for (int j = 0; j < (int)nodes[i].link.size(); j++)
+                        // force to transit to rest pose
+                        if (nodes[i].label != 1 &&                                  // walk
+                            nodes[i].label != 2)                                    // run
+                        //if (false)
                         {
-                            if (edges[nodes[i].link[j]].rest != 0)
+                            for (int j = 0; j < (int)nodes[i].link.size(); j++)
                             {
-                                nextEdge = nodes[i].link[j];
-                                break;
+                                if (edges[nodes[i].link[j]].rest != 0)
+                                {
+                                    nextEdge = nodes[i].link[j];
+                                    break;
+                                }
                             }
                         }
                         //printf("%d(%d) --> %d(%d)\n", nodes[edges[nextEdge].src].motionIdx, nodes[edges[nextEdge].src].frameIdx,
@@ -741,16 +779,24 @@ void MotionGraph::genGraph()
             if (nextEdge == -1)
             {
                 printf("Warning: node[%d](%d, %d) cannot reach label %d.\n", i, nodes[i].motionIdx, nodes[i].frameIdx, dstLabel);
-                exit(-1);
+                //exit(-1);
             }
         }
     }
 
+    printf("done.\n");
+
+    printf("Total edges: %d\n", edges.size());
+
     ////////////////////////////////////////////////////////////////////////////
+
+    printf("Constructing clips... ");
 
     // construct edge clips
     for (size_t eid = 0; eid < edges.size(); eid++)
     {
+        //printf("edge(%d)  ", eid);
+
         Motion *clip = NULL;
 
         Edge &e = edges[eid];
@@ -760,12 +806,21 @@ void MotionGraph::genGraph()
         if (nsrc.motionIdx != ndst.motionIdx || e.length != ndst.frameIdx - nsrc.frameIdx)      // transition between two motions
         {
             //printf("src(%d, %d) dst(%d, %d) %d\n", nsrc.motionIdx, nsrc.frameIdx, ndst.motionIdx, ndst.frameIdx, e.length);
-            Transition *tran = new Transition(library->getMotion(nsrc.motionIdx), nsrc.frameIdx, library->getMotion(ndst.motionIdx), ndst.frameIdx, e.theta, e.x0, e.z0);
-            clip = tran->getBlendedMotion();
-            delete tran;
+            try
+            {
+                Transition *tran = new Transition(library->getMotion(nsrc.motionIdx), nsrc.frameIdx, library->getMotion(ndst.motionIdx), ndst.frameIdx, e.theta, e.x0, e.z0);
+                clip = tran->getBlendedMotion();
+                delete tran;
+            }
+            catch (std::exception &e)
+            {
+                printf("%s\n", e.what());
+                exit(-1);
+            }
         }
         else                                                                                    // forward edge
         {
+            //printf("forward src(%d, %d) dst(%d, %d) %d\n", nsrc.motionIdx, nsrc.frameIdx, ndst.motionIdx, ndst.frameIdx, e.length);
             Motion *motion = library->getMotion(nsrc.motionIdx);
             clip = new Motion(e.length + 1, library->getSkeleton());
             if (e.length != ndst.frameIdx - nsrc.frameIdx)
@@ -781,8 +836,12 @@ void MotionGraph::genGraph()
 
         clips.push_back(clip);
     }
+
+    printf("done.\n");
         
     reset();
+
+    printf("Generating motion graph: done.\n");
 }
 
 void MotionGraph::reset()
@@ -816,14 +875,20 @@ void MotionGraph::advance()
         currentEdge = nodes[nodeId].next[targetLabel];
         currentFrame = 0;
 
-        printf("edge(%d): %d(%d) --> %d(%d)\n", currentEdge, nodes[edges[currentEdge].src].motionIdx, nodes[edges[currentEdge].src].frameIdx,
-                                                             nodes[edges[currentEdge].dst].motionIdx, nodes[edges[currentEdge].dst].frameIdx);
+        //printf("edge(%d): %d(%d) --> %d(%d)\n", currentEdge, nodes[edges[currentEdge].src].motionIdx, nodes[edges[currentEdge].src].frameIdx,
+        //                                                     nodes[edges[currentEdge].dst].motionIdx, nodes[edges[currentEdge].dst].frameIdx);
     }
 }
 
 void MotionGraph::setTargetLabel(int label)
 {
     targetLabel = label;
+}
+
+int MotionGraph::getCurrentLabel()
+{
+    int n = edges[currentEdge].src;
+    return nodes[n].label;
 }
 
 Motion *MotionGraph::getMotion()

@@ -22,6 +22,7 @@ Revision 3 - Jernej Barbic and Yili Zhao (USC), Feb, 2012
 
 extern MotionGraph *motion_graph;
 extern bool displayPointCloud;
+extern bool useMotionGraph;
 
 
 float DisplaySkeleton::jointColors[NUMBER_JOINT_COLORS][3] =
@@ -227,6 +228,9 @@ void DisplaySkeleton::DrawBone(Bone *pBone,int skelNum)
   if(pBone->idx == Skeleton::getRootIndex())
   {
     // glCallList(m_BoneList[skelNum] + pBone->idx);  // no need to draw the root here any more (it is not a bone) 
+    double matrix[16];
+    glGetDoublev(GL_MODELVIEW_MATRIX, matrix);
+    m_RootPos = matMultVec3(matrix, vector(0.0, 0.0, 0.0));
   }
   else
   { 
@@ -335,9 +339,12 @@ void DisplaySkeleton::Render(RenderMode renderMode_)
     m_pSkeleton[i]->GetRotationAngle(rotationAngle);
 
     //*///// M.S.
-    double matrix[16];
-    motion_graph->getTransformMatrix(matrix);
-    glMultMatrixd(matrix);
+    if (useMotionGraph)
+    {
+      double matrix[16];
+      motion_graph->getTransformMatrix(matrix);
+      glMultMatrixd(matrix);
+    }
 
     glTranslatef(float(MOCAP_SCALE * translation[0]), float(MOCAP_SCALE * translation[1]), float(MOCAP_SCALE * translation[2]));
     glRotatef(float(rotationAngle[0]), 1.0f, 0.0f, 0.0f);

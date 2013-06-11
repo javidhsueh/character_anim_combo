@@ -64,7 +64,7 @@ Fl_Window * make_window()
     Fl_Window * o = main_window = new Fl_Window(741, 622, "ASF/AMC Motion Capture Player");
     w = o;
     { 
-      Fl_Group * o = new Fl_Group(10, 485, 615, 140);
+      Fl_Group * o = new Fl_Group(10, 485, 685, 140);
 //      { 
 //        Fl_Button * o = loadSkeleton_button = new Fl_Button(10, 495, 120, 40, "Load Skeleton");
 //        o->callback((Fl_Callback *)load_callback);
@@ -86,42 +86,42 @@ Fl_Window * make_window()
 //        o->callback((Fl_Callback *)resetScene_callback);
 //      }
       {
-        Fl_Light_Button* o = action1_button = new Fl_Light_Button(10, 495, 80, 25, "Kick(1)");
+        Fl_Light_Button* o = action1_button = new Fl_Light_Button(10, 495, 80, 25, "Rest(1)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action2_button = new Fl_Light_Button(95, 495, 80, 25, "Punch(2)");
+        Fl_Light_Button* o = action2_button = new Fl_Light_Button(95, 495, 80, 25, "Walk(2)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action3_button = new Fl_Light_Button(180, 495, 80, 25, "Slash(3)");
+        Fl_Light_Button* o = action3_button = new Fl_Light_Button(180, 495, 80, 25, "Run(3)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action4_button = new Fl_Light_Button(265, 495, 80, 25, "Jump(4)");
+        Fl_Light_Button* o = action4_button = new Fl_Light_Button(265, 495, 80, 25, "Punch(4)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action5_button = new Fl_Light_Button(350, 495, 80, 25, "Run(5)");
+        Fl_Light_Button* o = action5_button = new Fl_Light_Button(350, 495, 80, 25, "Boxing(5)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action6_button = new Fl_Light_Button(435, 495, 80, 25, "Punch(6)");
+        Fl_Light_Button* o = action6_button = new Fl_Light_Button(435, 495, 80, 25, "Jump(6)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action7_button = new Fl_Light_Button(520, 495, 80, 25, "Punch(7)");
+        Fl_Light_Button* o = action7_button = new Fl_Light_Button(520, 495, 80, 25, "Slash(7)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
     
       {
-        Fl_Light_Button* o = action8_button = new Fl_Light_Button(605, 495, 80, 25, "RestPose");
+        Fl_Light_Button* o = action8_button = new Fl_Light_Button(605, 495, 80, 25, "Martial(8)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
       
@@ -146,6 +146,7 @@ Fl_Window * make_window()
         o->labeltype(FL_SYMBOL_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback *)play_callback);
+        o->hide();
       }
       { 
         Fl_Button* o = play_button = new Fl_Button(500, 575, 35, 25, "@>");
@@ -158,6 +159,7 @@ Fl_Window * make_window()
         o->labeltype(FL_SYMBOL_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback *)play_callback, (void*)(0));
+        o->hide();
       }
       { 
         Fl_Button* o = plusOne_button = new Fl_Button(570, 575, 35, 25, "+1");
@@ -170,6 +172,7 @@ Fl_Window * make_window()
         o->labeltype(FL_SYMBOL_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback *)play_callback, (void*)(0));
+        o->hide();
       }
       o->end();
     }  // FL_group
@@ -189,6 +192,7 @@ Fl_Window * make_window()
       o->step(1);
       o->callback((Fl_Callback*)fslider_callback, (void*)(0));
       o->align(197);
+      o->hide();
     }
 
     { 
@@ -196,6 +200,7 @@ Fl_Window * make_window()
       o->minimum(0);
       o->value(1);
       o->callback((Fl_Callback*)playSpeed_callback);
+      o->hide();
     }
     
 //    { 
@@ -234,6 +239,7 @@ Fl_Window * make_window()
       o->step(1);
       o->value(-1);
       o->callback((Fl_Callback*)spotJoint_callback);
+      o->hide();
     }
 
     { 
@@ -258,11 +264,13 @@ Fl_Window * make_window()
       Fl_Button * o = aboutPlayer_button = new Fl_Button(650, 420, 85, 25, "About");
       o->callback((Fl_Callback *)aboutPlayer_callback);
       o->align(FL_ALIGN_INSIDE);
+      o->hide();
     }
 
     {
-      Fl_Button* o = test_button = new Fl_Button(650, 235, 85, 25, "Test");
+      Fl_Button* o = test_button = new Fl_Button(650, 235, 85, 25, "Gen Graph");
       o->callback((Fl_Callback *)action_callback, (void*)(0));
+      o->hide();
     }
 
     {

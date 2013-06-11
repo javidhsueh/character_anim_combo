@@ -41,6 +41,9 @@ MotionGraph* motion_graph;
 
 bool useMotionGraph = true;
 bool displayPointCloud = false;
+bool cameraFollow = true;
+
+bool firstInit = true;
 
 
 enum SwitchStatus {OFF, ON};
@@ -100,6 +103,49 @@ PerformanceCounter performanceCounter;
 PerformanceCounter saveFileTimeCounter;
 double saveFileTimeCost = -1.0; // if value is negative, it means the data is invalid
 
+void setLightedButton(Fl_Light_Button *button);
+
+void advanceOneFrame()
+{
+    motion_graph->advance();
+    switch (motion_graph->getTargetLabel())
+    {
+    case 0:
+        if (action1_button->value() == 0)
+            setLightedButton(action1_button);
+        break;
+    case 1:
+        if (action2_button->value() == 0)
+            setLightedButton(action2_button);
+        break;
+    case 2:
+        if (action3_button->value() == 0)
+            setLightedButton(action3_button);
+        break;
+    case 3:
+        if (action4_button->value() == 0)
+            setLightedButton(action4_button);
+        break;
+    case 4:
+        if (action5_button->value() == 0)
+            setLightedButton(action5_button);
+        break;
+    case 5:
+        if (action6_button->value() == 0)
+            setLightedButton(action6_button);
+        break;
+    case 6:
+        if (action7_button->value() == 0)
+            setLightedButton(action7_button);
+        break;
+    case 7:
+        if (action8_button->value() == 0)
+            setLightedButton(action8_button);
+        break;
+    default:
+        break;
+    }
+}
 
 void loadMotion(int index){
     Motion* motion = motion_lib->getMotion(index);
@@ -193,14 +239,44 @@ void RenderGroundPlane(double groundPlaneSize, double groundPlaneHeight, double 
 
 void cameraView(void)
 {
-  glTranslated(camera.tx, camera.ty, camera.tz);
-  glTranslated(camera.atx, camera.aty, camera.atz);
+  vector rootPos;
+  rootPos.set_x(displayer.GetSkeleton(0)->getRoot()->tx);
+  rootPos.set_y(displayer.GetSkeleton(0)->getRoot()->ty);
+  rootPos.set_z(displayer.GetSkeleton(0)->getRoot()->tz);
+  double matrix[16];
+  motion_graph->getTransformMatrix(matrix);
+  glPushMatrix();
+  glLoadIdentity();
+  glMultMatrixd(matrix);
+  glMultMatrixd((double *)&displayer.GetSkeleton(0)->getRoot()->rot_parent_current);
+  glGetDoublev(GL_MODELVIEW_MATRIX, matrix);
+  glPopMatrix();
+  rootPos = matMultVec3(matrix, rootPos);
+  vector cam;
+  cam.set_x(-rootPos.x());
+  cam.set_y(camera.ty);
+  cam.set_z(-rootPos.z());
 
+  if (cameraFollow)
+  {
+    glTranslated(cam.x(), cam.y(), cam.z());
+    glTranslated(-cam.x(), -cam.y(), -cam.z());
+  }
+  else
+  {
+    glTranslated(camera.tx, camera.ty, camera.tz);
+    glTranslated(camera.atx, camera.aty, camera.atz);
+  }
+  
   glRotated(-camera.tw, 0.0, 1.0, 0.0);
   glRotated(-camera.el, 1.0, 0.0, 0.0);
   glRotated(camera.az, 0.0, 1.0, 0.0); 
   
-  glTranslated(-camera.atx, -camera.aty, -camera.atz);
+  if (cameraFollow)
+    glTranslated(cam.x(), cam.y(), cam.z());
+  else
+    glTranslated(-camera.atx, -camera.aty, -camera.atz);
+  
   glScaled(camera.zoom, camera.zoom, camera.zoom);
 }
 
@@ -361,7 +437,7 @@ void setLightedButton(Fl_Light_Button *button){
     button->value(ON);
 }
 void action_callback(Fl_Light_Button *button, void *){
-    printf("in action callback\n");
+    //printf("in action callback\n");
     if(button == action1_button){
         //loadMotion(0);
         motion_graph->setTargetLabel(0);
@@ -616,7 +692,8 @@ void idle(void*)
     //*///// M.S.
     if (useMotionGraph)
     {
-      motion_graph->advance();
+      //motion_graph->advance();
+        advanceOneFrame();
     }
     else
     {
@@ -672,12 +749,20 @@ void idle(void*)
   {
     if (displayer.GetNumSkeletons() != 0)
     {
+      //*///// M.S.
+      if (useMotionGraph)
+      {
+        advanceOneFrame();
+      }
+      else
+      {
       currentFrameIndex++;
       if (currentFrameIndex >= maxFrames)
         currentFrameIndex = maxFrames - 1;
       frame_slider->value((double) currentFrameIndex + 1);
 
       SetSkeletonsToSpecifiedFrame(currentFrameIndex);
+      }
 
       if (saveScreenToFile == SAVE_CONTINUOUS)
       {
@@ -826,6 +911,9 @@ void aboutPlayer_callback(Fl_Button * button, void *)
 
 void GraphicsInit() 
 {
+    if (!firstInit) return;
+    firstInit = false;
+
   int red_bits, green_bits, blue_bits;
   struct {GLint x, y, width, height;} viewport;
   glEnable(GL_DEPTH_TEST);	/* turn on z-buffer */
@@ -1014,6 +1102,8 @@ void Player_Gl_Window::draw()
 
         motion_graph = new MotionGraph(motion_lib);
         motion_graph->genGraph();
+
+        playButton = ON;
       }
       firstLoading =false;
   }
@@ -1030,19 +1120,24 @@ int handle(int e) {
     int k = Fl::event_key();
 
     ////
-    if (k == 'z')
+    /*if (k == 'z')
     {
         motion_graph->advance();
         pSkeleton->setPosture(*motion_graph->getPosture());
         printf(".");
-    }
+    }*/
 
-    if(currentState == k)
-        return (e == FL_SHORTCUT) ;
+    //if(currentState == k)
+    //    return (e == FL_SHORTCUT) ;
     currentState = k;
     
     switch(currentState){
-        case 'a':
+        case 'z':
+        { 
+            minusOneButton = OFF; plusOneButton = ON;  rewindButton = OFF; playButton = OFF; repeatButton = OFF;
+        }
+            break;
+        /*case 'a':
         {
             Motion* m = motion_lib->createTransition(0, 1779, 1, 55, 0, -0.496475, 1.036019 );
             displayer.LoadMotion(m);
@@ -1119,7 +1214,7 @@ int handle(int e) {
             motion_graph->distance(&pcA, &pcB, &theta, &x0, &z0);
             printf("%lf %lf %lf\n", theta, x0, z0);
             }
-            break;
+            break;*/
         case '1':
             //loadMotion(0);
             motion_graph->setTargetLabel(0);

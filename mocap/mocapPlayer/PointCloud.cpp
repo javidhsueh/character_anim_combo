@@ -5,7 +5,13 @@
 #include <FL/glut.H>
 
 #include "PointCloud.h"
+#include "MotionGraph.h"
 #include "transform.h"
+
+
+extern MotionGraph *motion_graph;
+extern bool useMotionGraph;
+
 
 void copyMatrix(double dst[], const double src[])
 {
@@ -149,11 +155,20 @@ void PointCloud::draw()
 
     glPushMatrix();
 
-    glMultMatrixd(transformMatrix);
+    if (useMotionGraph)
+    {
+        double matrix[16];
+        motion_graph->getTransformMatrix(matrix);
+        glMultMatrixd(matrix);
+    }
+    else
+    {
+        glMultMatrixd(transformMatrix);
+    }
 
     for (int i = 0; i < numPoints; i++)
     {
-        if (i % 2 == 0)
+        if (i / 6 % 2 == 0)
         {
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
