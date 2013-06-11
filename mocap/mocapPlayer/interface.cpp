@@ -86,42 +86,42 @@ Fl_Window * make_window()
 //        o->callback((Fl_Callback *)resetScene_callback);
 //      }
       {
-        Fl_Light_Button* o = action1_button = new Fl_Light_Button(10, 495, 80, 25, "Kick(1)");
+        Fl_Light_Button* o = action1_button = new Fl_Light_Button(10, 495, 80, 25, "Rest(1)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action2_button = new Fl_Light_Button(95, 495, 80, 25, "Punch(2)");
+        Fl_Light_Button* o = action2_button = new Fl_Light_Button(95, 495, 80, 25, "Walk(2)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action3_button = new Fl_Light_Button(180, 495, 80, 25, "Slash(3)");
+        Fl_Light_Button* o = action3_button = new Fl_Light_Button(180, 495, 80, 25, "Run(3)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action4_button = new Fl_Light_Button(265, 495, 80, 25, "Jump(4)");
+        Fl_Light_Button* o = action4_button = new Fl_Light_Button(265, 495, 80, 25, "Punch(4)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action5_button = new Fl_Light_Button(350, 495, 80, 25, "Run(5)");
+        Fl_Light_Button* o = action5_button = new Fl_Light_Button(350, 495, 80, 25, "Boxing(5)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action6_button = new Fl_Light_Button(435, 495, 80, 25, "Punch(6)");
+        Fl_Light_Button* o = action6_button = new Fl_Light_Button(435, 495, 80, 25, "Jump(6)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
         
       {
-        Fl_Light_Button* o = action7_button = new Fl_Light_Button(520, 495, 80, 25, "Punch(7)");
+        Fl_Light_Button* o = action7_button = new Fl_Light_Button(520, 495, 80, 25, "Slash(7)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
     
       {
-        Fl_Light_Button* o = action8_button = new Fl_Light_Button(605, 495, 80, 25, "RestPose");
+        Fl_Light_Button* o = action8_button = new Fl_Light_Button(605, 495, 80, 25, "Martial(8)");
         o->callback((Fl_Callback *)action_callback, (void*)(0));
       }
       
@@ -261,7 +261,7 @@ Fl_Window * make_window()
     }
 
     {
-      Fl_Button* o = test_button = new Fl_Button(650, 235, 85, 25, "Test");
+      Fl_Button* o = test_button = new Fl_Button(650, 235, 85, 25, "Gen Graph");
       o->callback((Fl_Callback *)action_callback, (void*)(0));
     }
 

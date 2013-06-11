@@ -409,6 +409,8 @@ void MotionGraph::genAllCandidates(int k)
     ofs << numMotions << std::endl;
 
     for (int i = 0; i < numMotions; i++)
+    //for (int i = numMotions - 1; i >= 0; i--)
+    //int i = 7;
     {
         for (int j = 0; j < numMotions; j++)
         {
@@ -626,7 +628,7 @@ void MotionGraph::genGraph()
         }
     }
 
-    // construct edges from the end of motions to the rest post
+    // construct edges from the end of motions to the rest pose
     if ((int)nodeId[restPoseIdx].size() >= k)
     {
         for (int m = 0; m < numMotions; m++)
@@ -710,14 +712,14 @@ void MotionGraph::genGraph()
                     {
                         //printf("%d(%d)\n", nodes[i].motionIdx, nodes[i].frameIdx);
                         nextEdge = nodes[i].link[0];
-                        for (int j = 0; j < (int)nodes[i].link.size(); j++)
+                        /*for (int j = 0; j < (int)nodes[i].link.size(); j++)
                         {
                             if (edges[nodes[i].link[j]].rest != 0)
                             {
                                 nextEdge = nodes[i].link[j];
                                 break;
                             }
-                        }
+                        }*/
                         //printf("%d(%d) --> %d(%d)\n", nodes[edges[nextEdge].src].motionIdx, nodes[edges[nextEdge].src].frameIdx,
                         //                              nodes[edges[nextEdge].dst].motionIdx, nodes[edges[nextEdge].dst].frameIdx);
                     }
@@ -739,7 +741,7 @@ void MotionGraph::genGraph()
             if (nextEdge == -1)
             {
                 printf("Warning: node[%d](%d, %d) cannot reach label %d.\n", i, nodes[i].motionIdx, nodes[i].frameIdx, dstLabel);
-                exit(-1);
+                //exit(-1);
             }
         }
     }

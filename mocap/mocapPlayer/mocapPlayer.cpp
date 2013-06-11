@@ -41,6 +41,7 @@ MotionGraph* motion_graph;
 
 bool useMotionGraph = true;
 bool displayPointCloud = false;
+bool cameraFollow = true;
 
 
 enum SwitchStatus {OFF, ON};
@@ -100,6 +101,12 @@ PerformanceCounter performanceCounter;
 PerformanceCounter saveFileTimeCounter;
 double saveFileTimeCost = -1.0; // if value is negative, it means the data is invalid
 
+
+void advanceOneFrame()
+{
+    motion_graph->advance();
+
+}
 
 void loadMotion(int index){
     Motion* motion = motion_lib->getMotion(index);
@@ -193,14 +200,44 @@ void RenderGroundPlane(double groundPlaneSize, double groundPlaneHeight, double 
 
 void cameraView(void)
 {
-  glTranslated(camera.tx, camera.ty, camera.tz);
-  glTranslated(camera.atx, camera.aty, camera.atz);
+  vector rootPos;
+  rootPos.set_x(displayer.GetSkeleton(0)->getRoot()->tx);
+  rootPos.set_y(displayer.GetSkeleton(0)->getRoot()->ty);
+  rootPos.set_z(displayer.GetSkeleton(0)->getRoot()->tz);
+  double matrix[16];
+  motion_graph->getTransformMatrix(matrix);
+  glPushMatrix();
+  glLoadIdentity();
+  glMultMatrixd(matrix);
+  glMultMatrixd((double *)&displayer.GetSkeleton(0)->getRoot()->rot_parent_current);
+  glGetDoublev(GL_MODELVIEW_MATRIX, matrix);
+  glPopMatrix();
+  rootPos = matMultVec3(matrix, rootPos);
+  vector cam;
+  cam.set_x(-rootPos.x());
+  cam.set_y(camera.ty);
+  cam.set_z(-rootPos.z());
 
+  if (cameraFollow)
+  {
+    glTranslated(cam.x(), cam.y(), cam.z());
+    glTranslated(-cam.x(), -cam.y(), -cam.z());
+  }
+  else
+  {
+    glTranslated(camera.tx, camera.ty, camera.tz);
+    glTranslated(camera.atx, camera.aty, camera.atz);
+  }
+  
   glRotated(-camera.tw, 0.0, 1.0, 0.0);
   glRotated(-camera.el, 1.0, 0.0, 0.0);
   glRotated(camera.az, 0.0, 1.0, 0.0); 
   
-  glTranslated(-camera.atx, -camera.aty, -camera.atz);
+  if (cameraFollow)
+    glTranslated(cam.x(), cam.y(), cam.z());
+  else
+    glTranslated(-camera.atx, -camera.aty, -camera.atz);
+  
   glScaled(camera.zoom, camera.zoom, camera.zoom);
 }
 

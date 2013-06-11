@@ -55,6 +55,7 @@ public:
   //*///// M.S.
   void GenPointCloud(Skeleton *skl) { if (m_pPointCloud != NULL) delete m_pPointCloud; m_pPointCloud = new PointCloud(skl); }
   PointCloud *GetPointCloud() { return m_pPointCloud; }
+  vector GetRootPos() { return m_RootPos; }
   //////*/
   
 protected:
@@ -76,6 +77,7 @@ protected:
 
   //*///// M.S.
   PointCloud *m_pPointCloud;
+  vector m_RootPos;
   //////*/
 
   static float jointColors[NUMBER_JOINT_COLORS][3];
